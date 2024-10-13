@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 //utils
 import Logo from './utils/techhome-logo.png'
 
@@ -14,7 +16,11 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                <h1>Tech Home</h1>
+                    <h1>Tech Home</h1>
+                </div>
+
+                <div>
+                    <Link href="/">HOME</Link>
                 </div>
             </div>
         </nav>

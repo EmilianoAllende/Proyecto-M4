@@ -1,27 +1,34 @@
 import React from 'react';
 
-const Custom404 = () => {
+const Error = () => {
     return (
+        <>
         <div style={styles.container}>
-            <h1 style={styles.heading}>404 - Página no encontrada</h1>
+            <h1 style={styles.heading}>404 - Page not found</h1>
             <img src="https://http.dog/404.jpg" alt="404 Not Found" style={styles.image} />
         </div>
+        </>
+
     );
 };
 
 const styles = {
     container: {
         textAlign: 'center',
-        marginTop: '50px',
+        marginTop: '8rem',
+        alignItems: 'center',
     },
     heading: {
+        maxWidth: '68%',
         fontSize: '2rem',
-        color: '#333',
+        color: 'var(--tertiary-color)',
+        backgroundColor: 'var(--secondary-color)',
     },
     image: {
-        maxWidth: '100%',
+        margin: 'auto',
+        maxWidth: '70%',
         height: 'auto',
     },
 };
 
-export default Custom404;
+export default Error;

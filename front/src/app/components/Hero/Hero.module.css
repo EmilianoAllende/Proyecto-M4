@@ -1,8 +1,14 @@
 .hero {
-    height: 200px;
+    height: 12rem;
     display: flex;
     align-items: center;
     flex-direction: column;
     background-color: var(--secondary-color);
+    opacity: .8;
     border-radius: 5px;
+    margin-top: 2rem;
+}
+
+.button {
+    background-color: var(--tertiary-color);
 }
