@@ -3,7 +3,7 @@ import Link from 'next/link';
 //utils
 import Logo from './utils/techhome-logo.png';
 import HomeIcon from './utils/home-house-ui-svgrepo-com.svg';
-import ChartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
+import CartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
 import UserIcon from './utils/user-application-identity-authentication-login-svgrepo-com.svg';
 
 //styles
@@ -28,13 +28,13 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="ml-auto mr-10">
-                    <Link href="/chart">
-                        <Image src={ChartIcon} width={50} height={50} alt='chart-icon' />CHART
+                    <Link href="/cart">
+                        <Image src={CartIcon} width={50} height={50} alt='cart-icon' />CART
                     </Link>
                 </div>
                 <div>
                     <Link href="/login">
-                        <Image src={UserIcon} width={50} height={50} alt='chart-icon' />LOGIN
+                        <Image src={UserIcon} width={50} height={50} alt='user-icon' />LOGIN
                     </Link>
                 </div>
             </div>

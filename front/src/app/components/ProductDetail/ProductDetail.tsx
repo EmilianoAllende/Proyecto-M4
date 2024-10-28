@@ -7,14 +7,14 @@ interface ProductDetailProps {
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
 
-    const {title, price, image, description} = product;
+    const {name, price, image, description} = product;
 
     return (
         <div className="rounded-3xl mx-auto flex flex-col bg-primaryColor p-8 text-tertiaryColor">
-            <h1 className="mx-auto text-5xl font-bold">{title}</h1>
+            <h1 className="mx-auto text-5xl font-bold">{name}</h1>
 
             <div className="flex flex-row">
-                <img src={image} alt={title} />
+                <img src={image} alt={name} />
                 <p className="ml-8 text-quaternaryColor text-justify">{description}</p>
             </div>
 
