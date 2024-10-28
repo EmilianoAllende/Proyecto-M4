@@ -1,5 +1,4 @@
 import { Product } from '../Card/types';
-import styles from './ProductDetail.module.css'
 
 interface ProductDetailProps {
     id: string;
@@ -11,15 +10,17 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     const {title, price, image, description} = product;
 
     return (
-        <div className={styles.productDetail}>
-            <h1>{title}</h1>
-            <div className={styles.productCard}>
+        <div className="rounded-3xl mx-auto flex flex-col bg-primaryColor p-8 text-tertiaryColor">
+            <h1 className="mx-auto text-5xl font-bold">{title}</h1>
+
+            <div className="flex flex-row">
                 <img src={image} alt={title} />
-                <p>{description}</p>
-                <div>
-                    <p>{price}</p>
-                    <button>Add To Cart</button>
-                </div>
+                <p className="ml-8 text-quaternaryColor text-justify">{description}</p>
+            </div>
+
+            <div className="m-auto">
+                <p>{price}</p>
+                <button className="bg-secondaryColor rounded-full p-2 w-fit">ADD TO CART</button>
             </div>
         </div>
     );

@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
         <Navbar />
-        {children}
+        <main className="container">{children}</main>
         <Footer />
       </body>
     </html>

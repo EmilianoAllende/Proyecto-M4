@@ -5,7 +5,11 @@ import productsMock from "@/app/mocks/products";
 
 const page = ({params}: { params: { id: string } }) => {
     const { id } = params;
-    return <ProductDetail id={id} product={productsMock[+id]} />;
+    return (
+        <div>
+            <ProductDetail id={id} product={productsMock[+id]} />
+        </div>
+    );
 };
 
 export default page;

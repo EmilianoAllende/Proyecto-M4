@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./CardList.module.css"
 
 interface CardListProps {
     children: React.ReactNode
@@ -7,7 +6,7 @@ interface CardListProps {
 
 const CardList = ({ children }: CardListProps) => {
     return (
-            <div className={styles.cardList}>
+            <div className="flex flex-wrap items-center justify-center gap-8">
                 {children}
             </div>
     );

@@ -1,10 +1,7 @@
-//styles
-import styles from './Footer.module.css'
-
 const Footer = () => {
     return (
-        <footer className={styles.footer}>
-            <div className='container'>
+        <footer className="bg-secondaryColor h-8">
+            <div className="w-10/12 mx-auto">
                 <h1>Footer</h1>
             </div>
         </footer>

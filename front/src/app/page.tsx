@@ -5,7 +5,7 @@ import productsMock from './mocks/products';
 
 const homePage = () => {
   return (
-    <div className='container main'>
+    <div className="mx-auto px-44">
       <Hero/>
 
       <CardList>

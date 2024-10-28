@@ -1,34 +1,17 @@
 import React from 'react';
+import Image from 'next/image';
+import RobImage from './public/404.jpg';
 
 const Error = () => {
     return (
         <>
-        <div style={styles.container}>
-            <h1 style={styles.heading}>404 - Page not found</h1>
-            <img src="https://http.dog/404.jpg" alt="404 Not Found" style={styles.image} />
+        <div className="flex flex-col text-center mt-24 items-center content-center">
+            <h1 className=" bg-secondaryColor text-tertiaryColor text-4xl" >PAGE NOT FOUND</h1>
+            <Image src={RobImage} width={600} alt='not-found-img' className="rounded-xl border-primaryColor" />
         </div>
         </>
 
     );
-};
-
-const styles = {
-    container: {
-        textAlign: 'center',
-        marginTop: '8rem',
-        alignItems: 'center',
-    },
-    heading: {
-        maxWidth: '68%',
-        fontSize: '2rem',
-        color: 'var(--tertiary-color)',
-        backgroundColor: 'var(--secondary-color)',
-    },
-    image: {
-        margin: 'auto',
-        maxWidth: '70%',
-        height: 'auto',
-    },
 };
 
 export default Error;

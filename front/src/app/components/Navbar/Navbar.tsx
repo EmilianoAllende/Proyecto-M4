@@ -1,26 +1,41 @@
 import Link from 'next/link';
 
 //utils
-import Logo from './utils/techhome-logo.png'
+import Logo from './utils/techhome-logo.png';
+import HomeIcon from './utils/home-house-ui-svgrepo-com.svg';
+import ChartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
+import UserIcon from './utils/user-application-identity-authentication-login-svgrepo-com.svg';
 
 //styles
 import Image from 'next/image';
-import styles from './Navbar.module.css'
 
 const Navbar = () => {
     return (
-        <nav className={styles.navbar}>
-            <div className='container'>
+        <nav className="w-screen">
+            <div className="flex flex-row w-10/12 items-center mx-auto">
                 <div>
-                    <Image src={Logo} alt='tech-home-logo.png'width={300} className={styles.logo} />
+                    <Image src={Logo} alt='tech-home-logo.png'width={300} className="w-16 m-1" />
                 </div>
 
-                <div>
-                    <h1>Tech Home</h1>
+                <div className="content-center">
+                    <h1>Tech</h1>
+                    <h1>Home</h1>
                 </div>
 
+                <div className="ml-7">
+                    <Link href="/">
+                        <Image src={HomeIcon} width={50} height={50} alt='home-icon' />HOME
+                    </Link>
+                </div>
+                <div className="ml-auto mr-10">
+                    <Link href="/chart">
+                        <Image src={ChartIcon} width={50} height={50} alt='chart-icon' />CHART
+                    </Link>
+                </div>
                 <div>
-                    <Link href="/">HOME</Link>
+                    <Link href="/login">
+                        <Image src={UserIcon} width={50} height={50} alt='chart-icon' />LOGIN
+                    </Link>
                 </div>
             </div>
         </nav>
