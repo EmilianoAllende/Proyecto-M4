@@ -1,5 +1,5 @@
 //types
-import { Product } from '../components/Card/types';
+import { Product } from '../interfaces/Product';
 
 const productsMock: Product[] = [
     {

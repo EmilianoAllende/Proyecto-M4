@@ -1,4 +1,4 @@
-import { Product } from '../Card/types';
+import { Product } from '../../interfaces/Product';
 
 interface ProductDetailProps {
     id: string;

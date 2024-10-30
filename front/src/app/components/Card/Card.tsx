@@ -2,7 +2,7 @@ import Link from 'next/link';
 // import Image from 'next/image';
 
 //types
-import { Product } from './types';
+import { Product } from '../../interfaces/Product';
 
 const Card: React.FC<Product> = ({ name, image, price, id }) => {
   return (

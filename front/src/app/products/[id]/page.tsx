@@ -1,15 +1,17 @@
-"use client";
-
 import ProductDetail from "@/app/components/ProductDetail/ProductDetail";
-import productsMock from "@/app/mocks/products";
+import { getProductById } from "../../../../service/products";
+import { notFound } from "next/navigation";
 
-const page = ({params}: { params: { id: string } }) => {
+
+const page = async ({ params }: { params: { id: string } }) => {
     const { id } = params;
-    return (
-        <div>
-            <ProductDetail id={id} product={productsMock[+id]} />
-        </div>
-    );
+    const product = await getProductById(Number(id));
+
+    if (!product) {
+        notFound();
+    };
+
+    return <ProductDetail id={id} product={product} />
 };
 
 export default page;

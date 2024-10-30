@@ -1,5 +1,39 @@
+import { Product } from "@/app/interfaces/Product";
 import productsMock from "@/app/mocks/products";
 
-export const getProduts = async () => {
-    return productsMock
+const ffProductsMock = process.env.FF_PRODUCTS_MOCK ? productsMock : false;
+const apiUrl = process.env.API_URL || "http://localhost:3001";
+
+export const getProduts = async (): Promise<Product[]> => {
+    let isFetchFailing = false;
+    const res = await fetch(apiUrl + "/products", {
+        cache: "no-store",
+    })
+    .then((res) => res.json())
+    .catch(() => (isFetchFailing = true));
+
+    if (isFetchFailing && ffProductsMock) {
+        return productsMock;
+    };
+
+    return res;
 };
+
+
+export const getFeaturedProducts = async (): Promise<Product[]> => {
+    const res = await getProduts();
+    const featured = res.slice(0, 3);
+    return featured;
+};
+
+export const getProductById = async (id: number): Promise<Product> => {
+    const res = await getProduts();
+    const product = res.filter((product) => product.id === id)[0];
+    return product;
+};
+// await fetch(apiUrl + "/products", {
+//         headers: {
+//             'Cache-Control': 'no-store',
+//         },
+//     cache: 'no-store',
+// });
