@@ -10,6 +10,8 @@ const RegisterForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    adress: "",
+    phone: "",
   });
 
   const [errors, setErrors] = useState({
@@ -17,6 +19,8 @@ const RegisterForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    adress: "",
+    phone: "",
   });
 
   const [touched, setTouched] = useState({
@@ -24,6 +28,8 @@ const RegisterForm = () => {
     email: false,
     password: false,
     confirmPassword: false,
+    adress: false,
+    phone: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,28 +38,30 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { nameError, emailError, passwordError, confirmPasswordError } =
+    const { nameError, emailError, passwordError, confirmPasswordError, adressError, phoneError } =
       validateRegisterForm(data);
 
-    if (nameError || emailError || passwordError || confirmPasswordError) {
+    if (nameError || emailError || passwordError || confirmPasswordError || adressError || phoneError) {
       setErrors({
         name: nameError,
         email: emailError,
         password: passwordError,
         confirmPassword: confirmPasswordError,
+        adress: adressError,
+        phone: phoneError,
       });
       return;
     }
 
     setIsSubmitting(true);
-    setErrors({ name: "", email: "", password: "", confirmPassword: "" });
+    setErrors({ name: "", email: "", password: "", confirmPassword: "", adress: "", phone: ""});
 
     try {
       console.log("Form submitted", data);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       swal("¡Registro exitoso!", "Te has registrado correctamente.", "success");
       setSubmitMessage("Registration successful!");
-      setData({ name: "", email: "", password: "", confirmPassword: "" });
+      setData({ name: "", email: "", password: "", confirmPassword: "", adress: "", phone: "" });
     } catch (error) {
       console.error("Registration failed", error);
       swal("Error", "Registration failed. Please try again.", "error");
@@ -89,10 +97,14 @@ const error = validateRegisterForm(data)[`${e.target.name}Error`];
     !errors.email &&
     !errors.password &&
     !errors.confirmPassword &&
+    !errors.adress &&
+    !errors.phone &&
     data.name &&
     data.email &&
     data.password &&
-    data.confirmPassword;
+    data.confirmPassword &&
+    data.adress &&
+    data.phone;
 
   return (
     <form
@@ -143,6 +155,30 @@ const error = validateRegisterForm(data)[`${e.target.name}Error`];
         value={data.confirmPassword}
         touched={touched.confirmPassword}
         error={errors.confirmPassword}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+      />
+
+      <RegisterFormInput
+        id="adress"
+        label="Adress"
+        name="adress"
+        type="adress"
+        value={data.adress}
+        touched={touched.adress}
+        error={errors.adress}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+      />
+
+      <RegisterFormInput
+        id="phone"
+        label="Phone"
+        name="phone"
+        type="phone"
+        value={data.phone}
+        touched={touched.phone}
+        error={errors.phone}
         handleChange={handleChange}
         handleBlur={handleBlur}
       />
