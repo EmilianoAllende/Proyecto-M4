@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { validateRegisterForm } from "../../helpers/validateRegister";
 import swal from "sweetalert";
 import RegisterFormInput from "./RegisterFormInput";
+// import { register } from "../../../../service/auth";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -37,6 +41,8 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // const res = await register(data);
+    // console.log(res);
 
     const { nameError, emailError, passwordError, confirmPasswordError, adressError, phoneError } =
       validateRegisterForm(data);
@@ -59,7 +65,7 @@ const RegisterForm = () => {
     try {
       console.log("Form submitted", data);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      swal("¡Registro exitoso!", "Te has registrado correctamente.", "success");
+      swal("Successfully registered!", "You have been succesfully registered.", "success");
       setSubmitMessage("Registration successful!");
       setData({ name: "", email: "", password: "", confirmPassword: "", adress: "", phone: "" });
     } catch (error) {
@@ -69,6 +75,8 @@ const RegisterForm = () => {
     } finally {
       setIsSubmitting(false);
     }
+
+    router.push("/login")
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,11 +207,11 @@ const error = validateRegisterForm(data)[`${e.target.name}Error`];
         <button
           type="submit"
           disabled={!isFormValid || isSubmitting}
-          className={`text-white ${
+          className={`text-secondaryColor ${
             !isFormValid || isSubmitting
-              ? "bg-gray-400"
-              : "bg-blue-700 hover:bg-blue-800"
-          } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
+              ? "bg-transparent text-transparent"
+              : "bg-primaryColor"
+          } font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>

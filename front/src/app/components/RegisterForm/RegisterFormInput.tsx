@@ -1,17 +1,6 @@
 // src/app/components/RegisterForm/RegisterFormInput.tsx
 import React from "react";
-
-interface RegisterFormInputProps {
-  id: string;
-  label: string;
-  name: string;
-  type: string;
-  value: string;
-  touched: boolean;
-  error: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { RegisterFormInputProps } from "@/app/interfaces/RegisterFormInputProps";
 
 const RegisterFormInput: React.FC<RegisterFormInputProps> = ({
   id,

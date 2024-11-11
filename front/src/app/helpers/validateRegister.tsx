@@ -1,3 +1,5 @@
+import { validateEmail, validatePassword } from "./validateLogin";
+
 export const validateRegisterForm = (data: {
     name: string;
     email: string;
@@ -21,14 +23,14 @@ export const validateRegisterForm = (data: {
 
     if (!data.email) {
       errors.emailError = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+    } else if (validateEmail(data.email)) {
       errors.emailError = "Invalid email address.";
     }
 
     if (!data.password) {
       errors.passwordError = "Password is required.";
-    } else if (data.password.length < 8) {
-      errors.passwordError = "Password must be at least 8 characters long.";
+    } else if (validatePassword(data.password)) {
+      errors.passwordError = 'Passwords must contain: 1 lower case letter [a-z], 1 upper case letter [A-Z], 1 numeric character [0-9], and 1 special character [/~`!?@#$.%<^>&*,()-_+={}[]|:"].';
     }
 
     if (data.password !== data.confirmPassword) {

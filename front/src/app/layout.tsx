@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
+import { AuthProvider } from "../../contexts/authContext";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,12 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
-        <Navbar />
-        <main className="container">{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
+          <Navbar />
+          <main className="container">{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

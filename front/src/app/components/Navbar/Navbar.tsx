@@ -1,10 +1,10 @@
 import Link from 'next/link';
+import { UserWidget } from './UserWidget/UserWidget';
 
 //utils
 import Logo from './utils/techhome-logo.png';
 import HomeIcon from './utils/home-house-ui-svgrepo-com.svg';
 import CartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
-import UserIcon from './utils/user-application-identity-authentication-login-svgrepo-com.svg';
 
 //styles
 import Image from 'next/image';
@@ -33,9 +33,7 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div>
-                    <Link href="/login">
-                        <Image src={UserIcon} width={50} height={50} alt='user-icon' />LOGIN
-                    </Link>
+                    <UserWidget/>
                 </div>
             </div>
         </nav>

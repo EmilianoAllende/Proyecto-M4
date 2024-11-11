@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 
 const page = async ({ params }: { params: { id: string } }) => {
-    const { id } = params;
+    const { id } = await params;
     const product = await getProductById(Number(id));
 
     if (!product) {

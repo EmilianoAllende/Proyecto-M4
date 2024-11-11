@@ -1,23 +1,43 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState, useContext } from "react";
 import Link from "next/link";
 import { validateEmail, validatePassword } from "@/app/helpers/validateLogin";
 import swal from "sweetalert";
+import { login } from "../../../../service/auth";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "../../../../contexts/authContext";
 
 const LoginForm = () => {
+    const { setUser } = useContext(AuthContext);
+    
+    const router = useRouter();
+
     const initialData = { email: "", password: "" }
     const [data, setData] = useState (initialData);
     const [errors, setErrors] = useState (initialData);
     const [touched, setTouched] = useState ({ email:false, password: false });
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        swal({
-            title: "Logged.",
-            text: "User succesfully loged in.",
-            icon: "success"
-        });
+        const res = await login(data);
+        console.log(res);
+        if (res.statusCode) {
+            swal({
+                title: "Error",
+                text: `${res.message}`,
+                icon: "error"
+            })
+        } else {
+            swal({
+                title: "Logged.",
+                text: "User succesfully loged in.",
+                icon: "success"
+            });
+        }
+
+        setUser(res);
+        router.push("/");
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,14 +88,16 @@ const LoginForm = () => {
                     </div>
 
                     <button 
-                    type="submit" className={`bg-primaryColor rounded-full p-2 mx-auto text-secondaryColor ${
+                    type="submit"
+                    
+                    className={`bg-primaryColor rounded-full p-2 mx-auto text-secondaryColor ${
                         errors.email !== "" &&
                         errors.password !== "" && 
                         data.email === "" &&
                         data.password === ""
                         ? "pointer-events-none"
                         : null
-                    } disabled:text-primaryColor`}>
+                    }`}>
                     SUBMIT
                     </button>
 
