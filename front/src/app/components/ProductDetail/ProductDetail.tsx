@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Product } from '../../interfaces/Product';
 import { useContext } from 'react';
 import { AuthContext } from '../../../../contexts/authContext';
+import swal from 'sweetalert';
+import { useRouter } from 'next/navigation';
 
 interface ProductDetailProps {
     id: string;
@@ -11,9 +13,24 @@ interface ProductDetailProps {
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
     const { user } = useContext(AuthContext);
+    const router = useRouter();
     const {name, price, image, description} = product;
-    const handleAddToCart = () => 
-        user?.login ? console.log(product) : console.log("Login first.");
+
+    const handleAddToCart = () => {
+        if (user?.login) {
+            swal({
+                title: "Added.",
+                text: "Product succesfully added to cart.",
+                icon: "success"
+            });
+        } else {
+            swal({
+                title: "Login First!",
+                text: "You need to login in order to make a purchase.",
+                icon: "warning",
+            });
+        router.push("/login")}
+        }
 
     return (
         <div className="rounded-3xl mx-auto flex flex-col bg-primaryColor p-8 text-tertiaryColor">

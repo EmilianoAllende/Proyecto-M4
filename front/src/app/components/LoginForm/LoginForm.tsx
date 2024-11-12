@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState, useContext } from "react";
 import Link from "next/link";
 import { validateEmail, validatePassword } from "@/app/helpers/validateLogin";
 import swal from "sweetalert";
-import { login } from "../../../../service/auth";
+import { login } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "../../../../contexts/authContext";
 

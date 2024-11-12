@@ -1,6 +1,6 @@
 import CardList from '../components/CardList/CardList';
 import  Card  from '../components/Card/Card';
-import { getProduts } from '../../../service/products';
+import { getProduts } from '../services/products';
 
 const productsPage = async () => {
     const products = await getProduts();

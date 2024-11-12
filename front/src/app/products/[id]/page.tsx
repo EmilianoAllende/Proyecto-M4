@@ -1,5 +1,5 @@
 import ProductDetail from "@/app/components/ProductDetail/ProductDetail";
-import { getProductById } from "../../../../service/products";
+import { getProductById } from "../../services/products";
 import { notFound } from "next/navigation";
 
 
