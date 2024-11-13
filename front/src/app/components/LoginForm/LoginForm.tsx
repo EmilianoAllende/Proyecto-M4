@@ -6,7 +6,7 @@ import { validateEmail, validatePassword } from "@/app/helpers/validateLogin";
 import swal from "sweetalert";
 import { login } from "../../services/auth";
 import { useRouter } from "next/navigation";
-import { AuthContext } from "../../../../contexts/authContext";
+import { AuthContext } from "../../contexts/authContext";
 
 const LoginForm = () => {
     const { setUser } = useContext(AuthContext);

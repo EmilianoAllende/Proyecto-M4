@@ -1,10 +1,12 @@
 "use client"
-import Image from 'next/image';
+
+import { CartContext } from '@/app/contexts/cartContext';
+import { AuthContext } from '../../contexts/authContext';
 import { Product } from '../../interfaces/Product';
 import { useContext } from 'react';
-import { AuthContext } from '../../../../contexts/authContext';
-import swal from 'sweetalert';
 import { useRouter } from 'next/navigation';
+import swal from 'sweetalert';
+import Image from 'next/image';
 
 interface ProductDetailProps {
     id: string;
@@ -13,11 +15,13 @@ interface ProductDetailProps {
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
     const { user } = useContext(AuthContext);
+    const { cart, setCart } = useContext(CartContext)
     const router = useRouter();
     const {name, price, image, description} = product;
 
     const handleAddToCart = () => {
         if (user?.login) {
+            setCart([...cart, product.id])
             swal({
                 title: "Added.",
                 text: "Product succesfully added to cart.",
@@ -29,8 +33,11 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
                 text: "You need to login in order to make a purchase.",
                 icon: "warning",
             });
-        router.push("/login")}
-        }
+            setTimeout(() => {
+                router.push("/login")
+            }, 2000);
+        };
+    };
 
     return (
         <div className="rounded-3xl mx-auto flex flex-col bg-primaryColor p-8 text-tertiaryColor">

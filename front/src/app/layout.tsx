@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Footer from "@/app/components/Footer/Footer";
-import { AuthProvider } from "../../contexts/authContext";
+import { AuthProvider } from "./contexts/authContext";
+import { CartProvider } from "./contexts/cartContext";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,13 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <AuthProvider>
-      <html lang="en">
-        <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
-          <Navbar />
-          <main className="container">{children}</main>
-          <Footer />
-        </body>
-      </html>
+      <CartProvider>
+        <html lang="en">
+          <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
+            <Navbar />
+            <main className="container">{children}</main>
+            <Footer />
+          </body>
+        </html>
+      </CartProvider>
     </AuthProvider>
   );
 }
