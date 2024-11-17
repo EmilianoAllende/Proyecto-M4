@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (user) {
             localStorage.setItem("user", JSON.stringify(user));
         };
-        console.log(user);
     }, [user]);
 
     useEffect(() => {

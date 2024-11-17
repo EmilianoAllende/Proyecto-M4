@@ -17,7 +17,7 @@ export const UserWidget = () => {
                 <button onClick={logout}>
                     <Image src={UserIcon} width={30} height={30} alt='user-icon' className="mx-auto" />SIGN OUT
                 </button>
-                <Link href="/dashboard">{user.user.email}</Link>
+                <Link href="/dashboard" className='m-auto'>{user.user.name}</Link>
             </div>)
         }</div>
     );

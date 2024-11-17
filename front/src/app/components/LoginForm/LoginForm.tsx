@@ -10,7 +10,7 @@ import { AuthContext } from "../../contexts/authContext";
 
 const LoginForm = () => {
     const { setUser } = useContext(AuthContext);
-    
+
     const router = useRouter();
 
     const initialData = { email: "", password: "" }
@@ -30,8 +30,8 @@ const LoginForm = () => {
             })
         } else {
             swal({
-                title: "Logged.",
-                text: "User succesfully loged in.",
+                title: "User succesfully loged in.",
+                text: "Now you are going to be redirected to .",
                 icon: "success"
             });
         }

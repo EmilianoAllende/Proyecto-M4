@@ -1,11 +1,8 @@
+import CartDetail from "../components/CartDetail/CartDetail";
+
 const cartPage = () => {
     return (
-        <div>
-            <h1>Cart</h1>
-
-            <div className="">
-            </div>
-        </div>
+        <CartDetail/>
     );
 };
 

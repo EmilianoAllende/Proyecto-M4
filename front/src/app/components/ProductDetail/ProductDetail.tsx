@@ -9,19 +9,22 @@ import swal from 'sweetalert';
 import Image from 'next/image';
 
 interface ProductDetailProps {
-    id: string;
+    id: number;
     product: Product
 };
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
     const { user } = useContext(AuthContext);
-    const { cart, setCart } = useContext(CartContext)
+    const { cart, setCart } = useContext(CartContext);
     const router = useRouter();
-    const {name, price, image, description} = product;
+    const {id, name, price, image, description, stock} = product;
+    const isOnCart = cart?.map((item) => item.id).includes(product.id);
+    //const isOnCart = false;
+    
 
     const handleAddToCart = () => {
         if (user?.login) {
-            setCart([...cart, product.id])
+            setCart([...cart || [], { id, name, price, image, description, stock}]);
             swal({
                 title: "Added.",
                 text: "Product succesfully added to cart.",
@@ -50,7 +53,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
             <div className="m-auto">
                 <p>{price}</p>
-                <button className="bg-secondaryColor rounded-full p-2 w-fit" onClick={handleAddToCart}>ADD TO CART</button>
+                <button className="bg-secondaryColor rounded-full p-2 w-fit"
+                    onClick={isOnCart ? () => router.push("/cart") : () => handleAddToCart()}>
+                    {isOnCart ? "Go To Cart" : "ADD TO CART"}
+                </button>
             </div>
         </div>
     );
