@@ -47,7 +47,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             <h1 className="mx-auto text-5xl font-bold">{name}</h1>
 
             <div className="flex flex-row">
-                <Image src={image} alt={name} width={500} height={500} sizes="20em, 33em"/>
+                <Image src={image} alt={name} width={300} height={200}/>
                 <p className="ml-8 text-quaternaryColor text-justify">{description}</p>
             </div>
 

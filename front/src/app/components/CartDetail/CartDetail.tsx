@@ -11,7 +11,7 @@ import swal from 'sweetalert';
 
 const CartDetail = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, orders, setOrders } = useContext(AuthContext);
 
     const { cart, emptyCart } = useContext(CartContext);
     const handleBuy = async () => {
@@ -33,10 +33,10 @@ const CartDetail = () => {
                         icon: "error",
                     });
                 };
+                setOrders([...orders, { id: parseInt(res.id) }]);
+                // setOrders([...orders, { id: parseInt(res.id), status: "pendig", date: Date.now.toString() }]);
             });
-        console.log(res);
-        
-    };
+        };
 
     return (
         <div>

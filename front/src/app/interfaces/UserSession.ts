@@ -15,10 +15,10 @@ export interface UserSessionData {
     orders: Order[];
 };
 
-interface Order {
+export interface Order {
     id: number;
-    status: string;
-    date: string;
+    status?: string;
+    date?: string;
 }
 
 interface Credential {

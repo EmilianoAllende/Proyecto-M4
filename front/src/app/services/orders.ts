@@ -1,10 +1,9 @@
 import { Cart } from "../contexts/cartContext";
-import productsPage from "../products/page";
 
 const apiUrl = process.env.API_URL || "http://localhost:3001";
 
 export const postOrders = async (userId: number, token: string, cart: Cart[]) => {
-    const data = { userId, products: cart.map((item) => item.id) };
+    const data = { userId, products: cart?.map((item) => item.id) };
     const res = await fetch(`${apiUrl}/orders`, {
         method: "POST",
         body: JSON.stringify(data),
