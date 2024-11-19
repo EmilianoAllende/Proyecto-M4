@@ -1,8 +1,11 @@
 import CartDetail from "../components/CartDetail/CartDetail";
+import AuthProtected from "../components/AuthProtected/AuthProtected";
 
 const cartPage = () => {
     return (
-        <CartDetail/>
+        <AuthProtected>
+            <CartDetail/>
+        </AuthProtected>
     );
 };
 

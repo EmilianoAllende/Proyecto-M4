@@ -13,10 +13,12 @@ interface AuthContextProps {
 };
 
 export const AuthContext = createContext<AuthContextProps>({
+    // USER
     user: null,
-    orders: [],
     setUser: () => {},
     logout: () => {},
+    // ORDERS
+    orders: [],
     setOrders: () => {},
 });
 
@@ -27,14 +29,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (user) {
             localStorage.setItem("user", JSON.stringify(user));
-
             setOrders(user?.user.orders || []);
         };
     }, [user]);
 
     useEffect(() => {
+        //if (typeof window !== "undefined" && window) {
         const localUser = JSON.parse(localStorage.getItem("user")!);
         setUser(localUser);
+        //}
     }, []);
 
     const logout = () => {
