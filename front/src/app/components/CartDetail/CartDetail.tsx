@@ -1,6 +1,6 @@
 "use client";
 import { CartContext } from '@/app/contexts/cartContext';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Roby from '@/app/public/CartToProducts.png'
