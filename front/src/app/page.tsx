@@ -1,22 +1,28 @@
-import { getFeaturedProducts } from './services/products';
-import Card from './components/Card/Card';
-import CardList from './components/CardList/CardList';
-import Hero from './components/Hero/Hero';
+"use client";
 
-const homePage = async () => {
-  const products = await getFeaturedProducts();
+import Link from "next/link";
+import Image from "next/image";
+import welcome from "@/../public/WELCOME.jpg";
+
+export default function Landing() {
   return (
-    <div className="mx-auto px-44">
-      <Hero/>
+    <div className="flex">
+      <div className="mx-auto items-center relative">
+        <h1 className="bg-secondaryColor p-2 w-fit text-cyan-400 font-bold text-7xl rounded-3xl">WELCOME</h1>
 
-      <CardList>
-        {products.map((product, i) => (
-          <Card key={i} {...product}/>
-        ))}
-      </CardList>
+        <Image src={welcome} alt={"WELCOME.img"} width={400}></Image>
 
+        <Link href={"home"}>
+          <button
+            className="bg-primaryColor text-quaternaryColor rounded-2xl px-2 absolute"
+            onClick={() => {
+              alert("It Works!");
+            }}
+          >
+            HOME
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
-
-export default homePage;

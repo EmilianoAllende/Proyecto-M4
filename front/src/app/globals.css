@@ -4,14 +4,14 @@
 
 :root {
   --primary-color: #171717;
-  --secondary-color: #C0C0C0;
-  --tertiary-color: #FF00FF;
+  --secondary-color: #240041;
+  --tertiary-color: #2772db;
   --quaternary-color: #FFD700;
 }
 
 body {
   @apply text-primaryColor flex flex-col min-h-screen;
-  background-image: url(./public/background.jpg);
+  background-image: url(../../public/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;

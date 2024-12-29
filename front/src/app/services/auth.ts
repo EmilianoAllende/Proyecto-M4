@@ -1,4 +1,4 @@
-import { UserRegisterData, UserLoginData } from "@/app/interfaces/UserData";
+import { UserRegisterData, UserLoginData } from "@/interfaces/UserData";
 
 const apiUrl = process.env.API_URL || "http://localhost:3001";
 

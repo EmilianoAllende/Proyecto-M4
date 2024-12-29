@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/app/components/Navbar/Navbar";
-import Footer from "@/app/components/Footer/Footer";
-import { AuthProvider } from "./contexts/authContext";
-import { CartProvider } from "./contexts/cartContext";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +26,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthProvider>
-      <CartProvider>
         <html lang="en">
           <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
             <Navbar />
@@ -37,7 +33,5 @@ export default function RootLayout({
             <Footer />
           </body>
         </html>
-      </CartProvider>
-    </AuthProvider>
   );
-}
+};

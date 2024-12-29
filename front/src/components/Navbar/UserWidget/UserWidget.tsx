@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/authContext';
+import { AuthContext } from '@/app/contexts/authContext';
 import UserIcon from '../utils/user-application-identity-authentication-login-svgrepo-com.svg';
 
 export const UserWidget = () => {

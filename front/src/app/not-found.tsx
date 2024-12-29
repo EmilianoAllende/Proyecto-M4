@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import RobImage from './public/404.jpg';
+import RobImage from '@/../public/404.jpg';
 
 const Error = () => {
     return (
