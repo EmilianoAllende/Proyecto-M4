@@ -3,7 +3,16 @@ import productsMock from "@/app/mocks/products";
 
 
 export const getProduts = async (): Promise<Product[]> => {
-    return productsMock;
+    try {
+        return productsMock;
+    } catch (error) {
+        swal({
+            title:'Error',
+            text:`Error obtaining the Products: ${error}.`,
+            icon: 'error',
+        })
+    }
+    return productsMock
 };
 
 

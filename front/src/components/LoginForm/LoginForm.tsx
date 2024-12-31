@@ -1,22 +1,16 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useState, useContext } from "react";
+import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import Link from "next/link";
-import { validateEmail, validatePassword } from "@/app/helpers/validateLogin";
 import swal from "sweetalert";
-import { login } from "../../services/auth";
-import { useRouter } from "next/navigation";
-import { AuthContext } from "../../contexts/authContext";
+import { login } from "@/app/services/auth";
+import { AuthContext } from "@/app/contexts/authContext";
 
-const LoginForm = () => {
+export default function LoginForm() {
     const { setUser } = useContext(AuthContext);
-
-    const router = useRouter();
 
     const initialData = { email: "", password: "" }
     const [data, setData] = useState (initialData);
-    const [errors, setErrors] = useState (initialData);
-    const [touched, setTouched] = useState ({ email:false, password: false });
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +19,7 @@ const LoginForm = () => {
         if (res.statusCode) {
             swal({
                 title: "Error",
-                text: `${res.message}`,
+                text: "Invalid credentials",
                 icon: "error"
             })
         } else {
@@ -34,33 +28,20 @@ const LoginForm = () => {
                 text: "Now you are going to be redirected to .",
                 icon: "success"
             });
-        }
-
+        };
         setUser(res);
-        router.push("/");
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-        setTouched({ ...touched, [e.target.name]: true });
-    };
-
-    useEffect(() => {
-        setErrors({
-            email: validateEmail(data.email),
-            password: validatePassword(data.password)
-        });
-    }, [data]);
-
     return (
         <div className="flex flex-col">
             <div className="mx-auto">
                 <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col">
                     <div>
-                        <label className="bg-primaryColor rounded-md p-1 font-semibold text-secondaryColor">USER</label>
+                        <label className="bg-primaryColor rounded-md p-1 font-semibold text-quaternaryColor">USER</label>
                         <input type="text"
                         placeholder="name@mail.com"
                         id="email"
@@ -68,13 +49,11 @@ const LoginForm = () => {
                         onChange={(e) => handleChange(e)}
                         value={data.email}
                         name="email"
-                        onBlur={(e) => handleBlur(e)}
                         required />
-                        {touched.email && <p className="text-red-600 bg-black rounded-xl w-48 p-1">{errors.email}</p>}
                     </div>
 
                     <div className="mt-2 mb-2">
-                        <label className="bg-primaryColor rounded-md p-1 font-semibold text-secondaryColor">PASSWORD</label>
+                        <label className="bg-primaryColor rounded-md p-1 font-semibold text-quaternaryColor">PASSWORD</label>
                         <input type="password"
                         placeholder="password"
                         id="password"
@@ -82,17 +61,13 @@ const LoginForm = () => {
                         onChange={(e) => handleChange(e)}
                         value={data.password}
                         name="password"
-                        onBlur={(e) => handleBlur(e)}
                         required />
-                        {touched.password && <p className="text-red-600 bg-black rounded-xl w-72 p-1">{errors.password}</p>}
                     </div>
 
                     <button 
                     type="submit"
                     
-                    className={`bg-primaryColor rounded-full p-2 mx-auto text-secondaryColor ${
-                        errors.email !== "" &&
-                        errors.password !== "" && 
+                    className={`bg-primaryColor rounded-full p-2 mx-auto text-quaternaryColor ${
                         data.email === "" &&
                         data.password === ""
                         ? "pointer-events-none"
@@ -101,8 +76,8 @@ const LoginForm = () => {
                     SUBMIT
                     </button>
 
-                    <Link href="/register" className="mt-5 mx-auto">
-                        <button type="submit" className="bg-secondaryColor rounded-full p-2">REGISTER</button>
+                    <Link href="/auth/register" className="mt-5 mx-auto">
+                        <button type="submit" className="bg-secondaryColor rounded-full p-2 text-tertiaryColor">REGISTER</button>
                     </Link>
                 </form>
             </div>
@@ -110,5 +85,3 @@ const LoginForm = () => {
         </div>
 );
 };
-
-export default LoginForm;

@@ -1,6 +1,5 @@
-// src/app/components/RegisterForm/RegisterFormInput.tsx
 import React from "react";
-import { RegisterFormInputProps } from "@/app/interfaces/RegisterFormInputProps";
+import { RegisterFormInputProps } from "@/interfaces/RegisterFormInputProps";
 
 const RegisterFormInput: React.FC<RegisterFormInputProps> = ({
   id,
@@ -13,8 +12,8 @@ const RegisterFormInput: React.FC<RegisterFormInputProps> = ({
   handleBlur,
 }) => {
   return (
-    <div className="bg-secondaryColor mt-8 rounded-xl">
-      <label className="block mb-2 text-sm font-medium text-primaryColor" htmlFor={id}>
+    <div className="bg-secondaryColor mt-2 rounded-xl">
+      <label className="block mb-2 text-sm font-medium text-quaternaryColor text-center w-full" htmlFor={id}>
         {label}
       </label>
       <input

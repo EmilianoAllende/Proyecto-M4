@@ -1,29 +1,17 @@
-"use client"
-
-import { Product } from "@/interfaces/Product";
 import { getProduts } from "../services/products";
-import { useEffect, useState } from "react";
 import Card from "@/components/Card/Card";
+import { Product } from "@/interfaces/Product";
 import Link from "next/link";
 
-export default function Home() {
-    const [products, setProducts] = useState<Product[]>([]);
+export default async function Home() {
+    const products: Product[] = await getProduts();
 
-    useEffect(() => {
-        getProduts()
-            .then((res) => {
-                setProducts(res);
-            })
-            .catch((error) => {
-                alert(`Error obtaining products: ${error}`)
-            });
-}, []);
     return (
         <div className="mx-auto px-44">
-            {products.map(({ name, price, image, description, stock, id, }) => {
+            {products.map(({ name, price, image, stock, id, }) => {
                 return (
                     <>
-                    <div>
+                    <div className="flex md:flex-row gap-2 md:gap-4">
                         <div>
                         <Link href={`${id}`}>
                             <Card
@@ -31,9 +19,7 @@ export default function Home() {
                                 name={name}
                                 price={price}
                                 image={image}
-                                description={description}
                                 stock={stock}
-                                
                             />
                         </Link>
                         </div>

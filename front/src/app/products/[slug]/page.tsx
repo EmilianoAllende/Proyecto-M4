@@ -1,6 +1,14 @@
-const page = async () => {
+export default async function Product({
+    params
+}: {
+    params:Promise<{ slug:string }>;
+}) {
+    const { slug } = await params;
 
-    return
+    return(
+        <div>
+            <h1>PRODUCT {slug}</h1>
+        </div>
+    )
 };
 
-export default page;

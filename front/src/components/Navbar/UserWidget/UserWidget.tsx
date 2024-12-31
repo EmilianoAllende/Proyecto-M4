@@ -10,7 +10,7 @@ export const UserWidget = () => {
 
     return (
         <div>{
-            !user?.login ? <Link href="/login">
+            !user?.login ? <Link href="/auth/login">
                 <Image src={UserIcon} width={50} height={50} alt='user-icon' className="mx-auto" />SIGN IN
             </Link> :(
             <div className="flex flex-col">
