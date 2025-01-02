@@ -1,27 +1,26 @@
-import { getProduts } from "../services/products";
+import { getFeaturedProducts } from "../services/getProducts";
 import Card from "@/components/Card/Card";
-import { Product } from "@/interfaces/Product";
+import Product from "@/interfaces/Product";
 import Link from "next/link";
 
 export default async function Home() {
-    const products: Product[] = await getProduts();
+    const featuredProducts: Product[] = await getFeaturedProducts();
 
     return (
-        <div className="mx-auto px-44">
-            {products.map(({ name, price, image, stock, id, }) => {
+        <div className="mx-auto px-44 flex md:flex-wrap justify-center gap-2 md:gap-4">
+            {featuredProducts.map(({ name, price, image, id, }) => {
                 return (
                     <>
-                    <div className="flex md:flex-row gap-2 md:gap-4">
+                    <div className="">
                         <div>
-                        <Link href={`${id}`}>
-                            <Card
-                                key={id}
-                                name={name}
-                                price={price}
-                                image={image}
-                                stock={stock}
-                            />
-                        </Link>
+                            <Link href={`/products/${id}`}>
+                                <Card
+                                    key={id}
+                                    name={name}
+                                    price={price}
+                                    image={image}
+                                />
+                            </Link>
                         </div>
                     </div>
                     </>

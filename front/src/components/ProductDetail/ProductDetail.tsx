@@ -1,8 +1,8 @@
 "use client"
 
 import { CartContext } from '@/app/contexts/cartContext';
-import { AuthContext } from '../../contexts/authContext';
-import { Product } from '../../interfaces/Product';
+import { AuthContext } from '@/app/contexts/authContext';
+import Product from '../../interfaces/Product';
 import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import swal from 'sweetalert';
@@ -19,7 +19,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     const router = useRouter();
     const {id, name, price, image, description, stock} = product;
     const isOnCart = cart?.map((item) => item.id).includes(product.id);
-    //const isOnCart = false;
     
 
     const handleAddToCart = () => {

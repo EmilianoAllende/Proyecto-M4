@@ -9,30 +9,17 @@ import CartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg'
 //styles
 import Image from 'next/image';
 
-// interface NavItem {
-//     image: typeof Image,
-//     path: string,
-// };
 
-// const navConfig: NavItem[] = [
-//     { image: HomeIcon, path: "home"},
-//     { image: CartIcon, path: "home"},
-// ];
+const excludePaths = ["/"];
 
 export default function Navbar() {
+    const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+
+    console.log(currentPath);
+
+if (!excludePaths.includes(currentPath))
     return (
         <nav className="w-screen">
-            {/* <ul>
-                {navConfig.map((el: NavItem)=>{
-                    return(
-                        <li key={`/${el.path}`}>
-                            <Link href={el.path}>
-                                <span>{el.image}</span>
-                            </Link>
-                        </li>
-                    );
-                })};
-            </ul> */}
 
             <div className="flex flex-row lg:w-10/12 items-center mx-auto">
                 <div>
@@ -44,16 +31,29 @@ export default function Navbar() {
                 </div>
 
                 <div className="ml-7">
-                    <Link href="/">
+                    <Link href="home">
                         <Image src={HomeIcon} width={50} height={50} alt='home-icon' />
                     </Link>
                 </div>
 
-                <div className="ml-auto mr-10">
+                <div className="ml-7">
+                    <Link href="/products">
+                        <h3 className='font-black bg-primaryColor text-quaternaryColor rounded-full px-2'>PRODUCTS</h3>
+                    </Link>
+                </div>
+
+                <div className="ml-auto mr-7">
                     <Link href="/cart">
                         <Image src={CartIcon} width={50} height={50} alt='cart-icon' />
                     </Link>
                 </div>
+
+                <div className="mr-10">
+                    <Link href="/about">
+                        <h3 className='font-black bg-primaryColor text-quaternaryColor rounded-full px-2'>ABOUT</h3>
+                    </Link>
+                </div>
+
                 <div>
                     <UserWidget/>
                 </div>
