@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/validator": "^13.12.2",
+    "axios": "^1.7.9",
     "next": "14.2.14",
     "react": "^18",
     "react-dom": "^18",

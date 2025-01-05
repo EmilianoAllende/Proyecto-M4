@@ -1,12 +1,15 @@
 import Product from "@/interfaces/Product";
-import productsMock from "@/app/mocks/products";
 import { notFound } from "next/navigation";
 import swal from "sweetalert";
+import axios from "axios";
 
+const apiUrl = process.env.API_URL || "http://localhost:3001";
 
 export const getProducts = async (): Promise<Product[]> => {
+    const fetch = await axios.get(apiUrl + "/products")
     try {
-        return productsMock;
+        // Error común, olvidarse del [data].
+        return fetch.data;
     } catch (error) {
         swal({
             title:'Error',
@@ -14,7 +17,7 @@ export const getProducts = async (): Promise<Product[]> => {
             icon: 'error',
         })
     }
-    return productsMock
+    return fetch.data;
 };
 
 

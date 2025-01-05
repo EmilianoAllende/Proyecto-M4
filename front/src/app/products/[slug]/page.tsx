@@ -9,8 +9,6 @@ export default async function Product({
     const { slug } = await params;
     const product = await getProductById(Number(slug));
 
-    console.log(product);
-
     return(
         <div>
             <ProductDetail id={Number(slug)} product={product}/>

@@ -25,7 +25,7 @@ export default async function productsPage() {
                     </div>
                     </>
                 );
-            })};
+            })}
         </div>
     );
 };
