@@ -1,6 +1,6 @@
 "use client";
 
-import AuthProtected from "@/components/AuthProtected/AuthProtected";
+import AuthProtected from "@/components/AuthProtected";
 
 const DashboardPage = () => {
     return (

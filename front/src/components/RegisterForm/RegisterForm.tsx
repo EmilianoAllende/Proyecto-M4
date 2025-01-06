@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { validateRegisterForm } from "../../helpers/validateRegister";
 import swal from "sweetalert";
 import RegisterFormInput from "./RegisterFormInput";
+import register from "@/app/services/register";
+import { Toast } from "../Toast";
 
 const RegisterForm = () => {
 
@@ -12,7 +14,7 @@ const RegisterForm = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        adress: "",
+        address: "",
         phone: "",
     });
 
@@ -21,7 +23,7 @@ const RegisterForm = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        adress: "",
+        address: "",
         phone: "",
     });
 
@@ -30,46 +32,43 @@ const RegisterForm = () => {
         email: false,
         password: false,
         confirmPassword: false,
-        adress: false,
+        address: false,
         phone: false,
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitMessage, setSubmitMessage] = useState("");
+    const [submitMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const res = await register(data);
-        // console.log(res);
 
-        const { nameError, emailError, passwordError, confirmPasswordError, adressError, phoneError } =
+        const { nameError, emailError, passwordError, confirmPasswordError, addressError, phoneError } =
         validateRegisterForm(data);
 
-        if (nameError || emailError || passwordError || confirmPasswordError || adressError || phoneError) {
+        if (nameError || emailError || passwordError || confirmPasswordError || addressError || phoneError) {
         setErrors({
             name: nameError,
             email: emailError,
             password: passwordError,
             confirmPassword: confirmPasswordError,
-            adress: adressError,
+            address: addressError,
             phone: phoneError,
         });
         return;
         }
 
         setIsSubmitting(true);
-        setErrors({ name: "", email: "", password: "", confirmPassword: "", adress: "", phone: ""});
+        setErrors({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: ""});
 
         try {
         console.log("Form submitted", data);
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        await register(data);
         swal("Successfully registered!", "You have been succesfully registered.", "success");
-        setSubmitMessage("Registration successful!");
-        setData({ name: "", email: "", password: "", confirmPassword: "", adress: "", phone: "" });
+        setData({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: "" });
         } catch (error) {
-        console.error("Registration failed", error);
-        swal("Error", "Registration failed. Please try again.", "error");
-        setSubmitMessage("Registration failed. Please try again.");
+        console.error("Registration failed", error.response.data.message);
+        Toast.fire(error.response.data.message);
         } finally {
         setIsSubmitting(false);
         }
@@ -102,13 +101,13 @@ const RegisterForm = () => {
         !errors.email &&
         !errors.password &&
         !errors.confirmPassword &&
-        !errors.adress &&
+        !errors.address &&
         !errors.phone &&
         data.name &&
         data.email &&
         data.password &&
         data.confirmPassword &&
-        data.adress &&
+        data.address &&
         data.phone;
 
     return (
@@ -165,13 +164,13 @@ const RegisterForm = () => {
         />
 
         <RegisterFormInput
-            id="adress"
-            label="Adress"
-            name="adress"
-            type="adress"
-            value={data.adress}
-            touched={touched.adress}
-            error={errors.adress}
+            id="address"
+            label="Address"
+            name="address"
+            type="address"
+            value={data.address}
+            touched={touched.address}
+            error={errors.address}
             handleChange={handleChange}
             handleBlur={handleBlur}
         />
@@ -200,15 +199,15 @@ const RegisterForm = () => {
             </p>
         )}
 
-        <div>
+        <div className="mx-auto">
             <button
             type="submit"
             disabled={!isFormValid || isSubmitting}
             className={`${
                 !isFormValid || isSubmitting
                 ? "bg-transparent text-transparent"
-                : "bg-primaryColortext-tertiaryColor"
-            } font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mx-auto`}
+                : "bg-primaryColor text-tertiaryColor"
+            } font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
             >
             {isSubmitting ? "Submitting..." : "Submit"}
             </button>

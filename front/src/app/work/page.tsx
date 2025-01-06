@@ -1,4 +1,4 @@
-import okayRobot from "@/../public/workWithUs.jpg";
+import okayRobot from "@/../public/work.jpg";
 import Image from "next/image";
 
 const workPage = () => {
@@ -7,7 +7,7 @@ const workPage = () => {
             <h1 className="bg-primaryColor text-7xl font-extrabold p-2 rounded-2xl">Work With Us</h1>
 
             <div className="flex flex-row mt-5">
-                <Image src={okayRobot} alt="work-robot" width={400} height={400}/>
+                <Image src={okayRobot} alt="work-robot" width={450} height={400}/>
                 <div className="ml-3 p-3 h-fit bg-primaryColor rounded-3xl text-2xl">
                     <h3 className="mb-2 text-center">WHY WORK WITH US?</h3>
                     <p>At HomeTech ® , we believe that innovation and passion are the keys to creating high-quality electronic products that enhance people&apos;s lives. Here are a few reasons why working with us is an excellent decision:</p>

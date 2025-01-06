@@ -1,32 +1,38 @@
-export const RegisterConfig = [
+export const registerConfig = [
     {
         name: "name",
-        label: "Name",
+        label: "Name:",
         type: "text",
+        placeholder: "Jane Doe",
     },
     {
         name: "e-mail",
-        label: "e-mail",
+        label: "e-mail:",
         type: "text",
+        placeholder: "janedoe@mail.com"
     },
     {
         name: "password",
-        label: "Pasword",
+        label: "Pasword:",
         type: "password",
+        placeholder:"****"
     },
     {
         name: "confirmPassword",
-        label: "Confirm Password",
+        label: "Confirm Password:",
         type: "password",
+        placeholder:"****"
     },
     {
         name: "adress",
-        label: "Adress",
+        label: "Adress:",
         type: "text",
+        placeholder: "Long Road 123"
     },
     {
         name: "phone",
-        label: "Phone Number",
+        label: "Phone Number:",
         type: "phone",
+        placeholder: "+123456789"
     },
 ];

@@ -6,14 +6,14 @@ export const validateRegisterForm = (data: {
     password: string;
     confirmPassword: string;
     phone: string,
-    adress: string
+    address: string
   }) => {
     const errors = {
       nameError: "",
       emailError: "",
       passwordError: "",
       confirmPasswordError: "",
-      adressError: "",
+      addressError: "",
       phoneError: "",
     };
 
@@ -37,8 +37,8 @@ export const validateRegisterForm = (data: {
       errors.confirmPasswordError = "Password does not match.";
     }
 
-    if (!data.adress) {
-      errors.adressError = "Adress is required.";
+    if (!data.address) {
+      errors.addressError = "address is required.";
     }
 
     if (!data.phone) {

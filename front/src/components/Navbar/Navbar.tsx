@@ -1,23 +1,11 @@
 import Link from 'next/link';
 import { UserWidget } from './UserWidget/UserWidget';
-
-//utils
 import Logo from './utils/techhome-logo.png';
 import HomeIcon from './utils/home-house-ui-svgrepo-com.svg';
 import CartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
-
-//styles
 import Image from 'next/image';
 
-
-const excludePaths = ["/"];
-
 export default function Navbar() {
-    const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
-
-    console.log(currentPath);
-
-if (!excludePaths.includes(currentPath))
     return (
         <nav className="w-screen">
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import ExcludedWrapper from "@/components/ExcludedWrapper";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 
@@ -28,9 +29,15 @@ export default function RootLayout({
   return (
         <html lang="en">
           <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
-            <Navbar />
+            <ExcludedWrapper>
+              <Navbar />
+            </ExcludedWrapper>
+
             <main className="container">{children}</main>
-            <Footer />
+
+            <ExcludedWrapper>
+              <Footer />
+            </ExcludedWrapper>
           </body>
         </html>
   );
