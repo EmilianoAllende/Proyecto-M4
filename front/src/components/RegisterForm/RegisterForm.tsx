@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { validateRegisterForm } from "../../helpers/validateRegister";
-import swal from "sweetalert";
 import RegisterFormInput from "./RegisterFormInput";
 import register from "@/app/services/register";
 import { Toast } from "../Toast";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+    const router = useRouter();
 
     const [data, setData] = useState({
         name: "",
@@ -37,7 +38,6 @@ const RegisterForm = () => {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -64,11 +64,12 @@ const RegisterForm = () => {
         console.log("Form submitted", data);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         await register(data);
-        swal("Successfully registered!", "You have been succesfully registered.", "success");
+        Toast.fire("Great!", "You have been succesfully registered.", "success");
         setData({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: "" });
+        router.push("/auth/login")
         } catch (error) {
         console.error("Registration failed", error.response.data.message);
-        Toast.fire(error.response.data.message);
+        Toast.fire("Error", error.response.data.message, "error");
         } finally {
         setIsSubmitting(false);
         }
@@ -187,18 +188,6 @@ const RegisterForm = () => {
             handleBlur={handleBlur}
         />
 
-        {submitMessage && (
-            <p
-            className={`text-sm ${
-                submitMessage.includes("successful")
-                ? "text-green-500"
-                : "text-red-500"
-            }`}
-            >
-            {submitMessage}
-            </p>
-        )}
-
         <div className="mx-auto">
             <button
             type="submit"
@@ -207,7 +196,7 @@ const RegisterForm = () => {
                 !isFormValid || isSubmitting
                 ? "bg-transparent text-transparent"
                 : "bg-primaryColor text-tertiaryColor"
-            } font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center`}
+            } font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center`}
             >
             {isSubmitting ? "Submitting..." : "Submit"}
             </button>

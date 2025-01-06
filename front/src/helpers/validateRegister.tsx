@@ -17,7 +17,7 @@ export const validateRegisterForm = (data: {
       phoneError: "",
     };
 
-    if (!data.name) {
+    if (!data.name || data.name.trim() === "") {
       errors.nameError = "Name is required.";
     }
 
@@ -37,11 +37,11 @@ export const validateRegisterForm = (data: {
       errors.confirmPasswordError = "Password does not match.";
     }
 
-    if (!data.address) {
+    if (!data.address || data.address.trim() === "") {
       errors.addressError = "address is required.";
     }
 
-    if (!data.phone) {
+    if (!data.phone || data.phone.trim() === "") {
       errors.phoneError = "Phone is required.";
     }
 
