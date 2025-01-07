@@ -2,32 +2,32 @@
 
 import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import Link from "next/link";
-import swal from "sweetalert";
 import { login } from "@/app/services/auth";
 import { AuthContext } from "@/app/contexts/authContext";
+import { Toast } from "../Toast";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+
 
 export default function LoginForm() {
+    const router = useRouter();
     const { setUser } = useContext(AuthContext);
 
     const initialData = { email: "", password: "" }
-    const [data, setData] = useState (initialData);
+    const [data, setData] = useState(initialData);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await login(data);
-        console.log(res);
         if (res.statusCode) {
-            swal({
-                title: "Error",
-                text: "Invalid credentials",
-                icon: "error"
-            })
+            Swal.fire("Error", "Invalid credentials", "error")
         } else {
-            swal({
-                title: "User succesfully loged in.",
-                text: "Now you are going to be redirected to .",
-                icon: "success"
-            });
+            Toast.fire("You just loged in.", "Now you are going to be redirected to Home.", "success");
+            setTimeout(() => {
+                router.push("/home");
+            }, 3000);
+            console.log(data);
+            
         };
         setUser(res);
     };
@@ -66,11 +66,10 @@ export default function LoginForm() {
 
                     <button 
                     type="submit"
-                    
                     className={`bg-primaryColor rounded-full p-2 mx-auto text-quaternaryColor ${
                         data.email === "" &&
                         data.password === ""
-                        ? "pointer-events-none"
+                        ? "pointer-events-none bg-transparent text-transparent"
                         : null
                     }`}>
                     SUBMIT

@@ -20,13 +20,13 @@ const RegisterFormInput: React.FC<RegisterFormInputProps> = ({
         type={type}
         id={id}
         name={name}
-        className={`bg-primaryColor text-tertiaryColor text-sm rounded-lg w-full p-3`}
+        className={`bg-primaryColor text-tertiaryColor text-lg rounded-lg w-full px-3 py-2`}
         value={value}
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder={label}
       />
-      {<p className="text-red-500 text-sm">{error}</p>}
+      {<p className="text-red-500 text-sm px-4">{error}</p>}
     </div>
   );
 };

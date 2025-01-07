@@ -1,16 +1,10 @@
 "use client"
 
-import { Order, UserSession } from "@/app/interfaces/UserSession";
-import { createContext, useEffect, useState } from "react"
 
-interface AuthContextProps {
-    user: UserSession | null;
-    setUser: (user: UserSession | null) => void;
-    logout: () => void;
-    orders: Order[];
-    setOrders: (orders: Order[]) => void;
+import { createContext, useEffect, useState } from "react";
+import { Order, UserSession } from "@/interfaces/UserSession";
+import { AuthContextProps } from "@/interfaces/AuthContextProps";
 
-};
 
 export const AuthContext = createContext<AuthContextProps>({
     // USER

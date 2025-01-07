@@ -61,12 +61,12 @@ const RegisterForm = () => {
         setErrors({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: ""});
 
         try {
-        console.log("Form submitted", data);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         await register(data);
         Toast.fire("Great!", "You have been succesfully registered.", "success");
         setData({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: "" });
-        router.push("/auth/login")
+        setTimeout(() => {
+            router.push("/auth/login");
+        }, 3000);
         } catch (error) {
         console.error("Registration failed", error.response.data.message);
         Toast.fire("Error", error.response.data.message, "error");

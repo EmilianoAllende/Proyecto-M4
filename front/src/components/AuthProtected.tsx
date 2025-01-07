@@ -1,9 +1,6 @@
 "use client";
 
-
-const AuthProtected = (children) => {
-
-
+const AuthProtected = (children: React.ReactNode) => {
     return <>{children}</>
 };
 
