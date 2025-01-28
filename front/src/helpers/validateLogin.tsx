@@ -2,7 +2,7 @@ import validator from "validator";
 
 export const validateEmail = (email: string) => {
     let validation = "";
-    if (!validator.isEmail(email)) validation = "Not a valid e-mail adress.";
+    if (!validator.isEmail(email)) validation = "Not a valid e-mail address.";
     return validation
 };
 

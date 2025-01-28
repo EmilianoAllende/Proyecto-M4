@@ -1,7 +1,9 @@
+import CartDetail from "@/components/CartDetail";
+import AuthProtected from "@/components/AuthProtected";
 export default function Cart() {
     return (
-        <h1>
-            CART
-        </h1>
+        <AuthProtected>
+            <CartDetail/>
+        </AuthProtected>
     );
 };

@@ -1,11 +1,11 @@
-import Product from "@/interfaces/Product";
+import { IProduct } from "@/interfaces/Product";
 import { notFound } from "next/navigation";
 import swal from "sweetalert";
 import axios from "axios";
 
 const apiUrl = process.env.API_URL || "http://localhost:3001";
 
-export const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async (): Promise<IProduct[]> => {
     const fetch = await axios.get(apiUrl + "/products")
     try {
         // Error común, olvidarse del [data].
@@ -21,13 +21,13 @@ export const getProducts = async (): Promise<Product[]> => {
 };
 
 
-export const getFeaturedProducts = async (): Promise<Product[]> => {
+export const getFeaturedProducts = async (): Promise<IProduct[]> => {
     const res = await getProducts();
     const featured = res.slice(0, 3);
     return featured;
 };
 
-export const getProductById = async (id: number): Promise<Product> => {
+export const getProductById = async (id: number): Promise<IProduct> => {
     const res = await getProducts();
     const product = res.filter((product) => product.id === id)[0];
     if(!product) {notFound()}

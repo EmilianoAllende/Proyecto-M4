@@ -24,8 +24,8 @@ export const registerConfig = [
         placeholder:"****"
     },
     {
-        name: "adress",
-        label: "Adress:",
+        name: "address",
+        label: "Address:",
         type: "text",
         placeholder: "Long Road 123"
     },

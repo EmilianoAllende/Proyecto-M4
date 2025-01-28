@@ -1,45 +1,11 @@
-"use client"
+"use client";
 
-import { CartContext } from '@/app/contexts/cartContext';
-import { AuthContext } from '@/app/contexts/authContext';
-import Product from '../../interfaces/Product';
-import { useContext } from 'react';
-import { useRouter } from 'next/navigation';
-import swal from 'sweetalert';
 import Image from 'next/image';
+import AddProduct from '../AddProduct';
+import ProductProps from '@/interfaces/ProductProps';
 
-interface ProductDetailProps {
-    id: number;
-    product: Product
-};
-
-const ProductDetail = ({ product }: ProductDetailProps) => {
-    const { user } = useContext(AuthContext);
-    const { cart, setCart } = useContext(CartContext);
-    const router = useRouter();
-    const {id, name, price, image, description, stock} = product;
-    const isOnCart = cart?.map((item) => item.id).includes(product.id);
-    
-
-    const handleAddToCart = () => {
-        if (user?.login) {
-            setCart([...cart || [], { id, name, price, image, description, stock}]);
-            swal({
-                title: "Added.",
-                text: "Product succesfully added to cart.",
-                icon: "success"
-            });
-        } else {
-            swal({
-                title: "Login First!",
-                text: "You need to login in order to make a purchase.",
-                icon: "warning",
-            });
-            setTimeout(() => {
-                router.push("/login")
-            }, 2000);
-        };
-    };
+export default function ProductDetail ({ product }: ProductProps) {
+    const { name, price, image, description, stock } = product;
 
     return (
         <div className="rounded-3xl mx-auto flex flex-col bg-primaryColor p-8 text-tertiaryColor">
@@ -50,15 +16,11 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
                 <p className="ml-8 text-quaternaryColor text-justify">{description}</p>
             </div>
 
-            <div className="m-auto">
-                <p>{price}</p>
-                <button className="bg-secondaryColor rounded-full p-2 w-fit"
-                    onClick={isOnCart ? () => router.push("/cart") : () => handleAddToCart()}>
-                    {isOnCart ? "Go To Cart" : "ADD TO CART"}
-                </button>
+            <div className="m-auto text-center">
+                <p>Stock: {stock}</p>
+                <p className='py-4'>${price}</p>
+                <AddProduct product={product}/>
             </div>
         </div>
     );
 };
-
-export default ProductDetail;

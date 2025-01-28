@@ -4,6 +4,8 @@ import "./globals.css";
 import ExcludedWrapper from "@/components/ExcludedWrapper";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { AuthProvider } from "../contexts/AuthContext";
+import { CartProvider } from "@/contexts/CartContext";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,15 +31,19 @@ export default function RootLayout({
   return (
         <html lang="en">
           <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
-            <ExcludedWrapper>
-              <Navbar />
-            </ExcludedWrapper>
+            <AuthProvider>
+              <CartProvider>
+                <ExcludedWrapper>
+                  <Navbar />
+                </ExcludedWrapper>
 
-            <main className="container">{children}</main>
+                <main className="container">{children}</main>
 
-            <ExcludedWrapper>
-              <Footer />
-            </ExcludedWrapper>
+                <ExcludedWrapper>
+                  <Footer />
+                </ExcludedWrapper>
+              </CartProvider>
+            </AuthProvider>
           </body>
         </html>
   );

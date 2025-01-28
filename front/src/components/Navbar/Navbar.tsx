@@ -4,6 +4,7 @@ import Logo from './utils/techhome-logo.png';
 import HomeIcon from './utils/home-house-ui-svgrepo-com.svg';
 import CartIcon from './utils/shopping-cart-with-product-inside-svgrepo-com.svg';
 import Image from 'next/image';
+import CartStatus from '../CartStatus';
 
 export default function Navbar() {
     return (
@@ -31,6 +32,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="ml-auto mr-7">
+                    <CartStatus />
                     <Link href="/cart">
                         <Image src={CartIcon} width={50} height={50} alt='cart-icon' />
                     </Link>
@@ -39,6 +41,12 @@ export default function Navbar() {
                 <div className="mr-10">
                     <Link href="/about">
                         <h3 className='font-black bg-primaryColor text-quaternaryColor rounded-full px-2'>ABOUT</h3>
+                    </Link>
+                </div>
+
+                <div className="mr-10">
+                    <Link href="/dashboard">
+                        <h3 className='font-black bg-primaryColor text-quaternaryColor rounded-full px-2'>DASHBOARD</h3>
                     </Link>
                 </div>
 

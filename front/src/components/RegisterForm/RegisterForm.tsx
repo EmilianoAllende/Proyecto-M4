@@ -6,8 +6,11 @@ import RegisterFormInput from "./RegisterFormInput";
 import register from "@/app/services/register";
 import { Toast } from "../Toast";
 import { useRouter } from "next/navigation";
+import { usePublic } from "@/hooks/usePublic";
 
 const RegisterForm = () => {
+    usePublic();
+
     const router = useRouter();
 
     const [data, setData] = useState({
