@@ -5,18 +5,20 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
 const AuthProtected = ({ children }: { children: React.ReactNode }) => {
-    const router = useRouter();
-    const context = useContext (AuthContext);
-    const user = context.user?.user;
+  const router = useRouter();
+  const { user, isAuthenticated } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (!user) {
-            router.push("/login");
-        };
-        
-    }, []);
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      router.push("/auth/login");
+    }
+  }, [isAuthenticated, router]);
 
-    return <>{children}</>
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
+
+  return <>{children}</>;
 };
 
 export default AuthProtected;

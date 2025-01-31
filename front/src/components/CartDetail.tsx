@@ -14,7 +14,8 @@ const CartDetail = () => {
     const { items: cart, emptyCart } = useCart();
 
     const handleBuy = async () => {
-        await postOrders(user?.user.id || 0, user?.token || "", cart).then((res) => {
+        
+        await postOrders(user?.id || 0, user?.token || "", cart).then((res) => {
             if (res.status === "approved") {
                 setOrders([...orders, { id: parseInt(res.id) }]);
 
@@ -35,13 +36,13 @@ const CartDetail = () => {
     };
 
     return (
-        <div>
+        <div className="mx-auto place-items-center">
             {cart.length === 0 ? (
                 <div className="mx-auto place-items-center">
                     <h2 className="bg-tertiaryColor text-xl text-center rounded-xl">
                         Cart is empty. <br />
                         You need to add{" "}
-                        <Link href="/products" className="bg-secondaryColor rounded-full p-1">
+                        <Link href="/products" className="bg-secondaryColor rounded-full p-1 text-quaternaryColor">
                             Products
                         </Link>{" "}
                         first.
@@ -52,14 +53,21 @@ const CartDetail = () => {
                 cart.map((item, index) => (
                     <div
                         key={index}
-                        className="bg-secondaryColor bg-opacity-70 items-center w-fit rounded-lg p-3 mx-auto"
+                        className="bg-secondaryColor bg-opacity-70 text-tertiaryColor items-center w-fit rounded-lg p-3 mx-auto"
                     >
                         <span>{item.name}</span>
                         <span className="ml-8">{`$ ${item.price}`}</span>
+                        <span>{item.image}</span>
                     </div>
                 ))
             )}
-            <button onClick={handleBuy}>BUY</button>
+            <button onClick={handleBuy}
+                disabled={cart.length === 0}
+                className={`mx-auto w-32 rounded-full px-4 font-black text-3xl ${
+                    cart.length === 0
+                        ? "bg-transparent text-transparent"
+                        : "bg-quaternaryColor text-pink-950"
+                }`}>B  U  Y</button>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { LoginData } from "./LoginData";
 
 export interface AuthContextProps {
     user: UserSession | null;
-    isAuthenticated: boolean;
+    isAuthenticated: boolean | null;
     setUser: (user: UserSession | null) => void;
     login: (form: LoginData) => void;
     logout: () => void;

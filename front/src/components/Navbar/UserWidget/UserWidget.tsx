@@ -34,15 +34,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import UserIcon from '../utils/user-application-identity-authentication-login-svgrepo-com.svg';
+import { useCart } from '@/contexts/CartContext';
 
 export const UserWidget = () => {
     const { isAuthenticated, user, logout } = useAuth();
 
+    const {emptyCart} = useCart()
     return (
         isAuthenticated ? (
             <div className="flex flex-col">
                 <button onClick={() => {
                     logout();
+                    emptyCart();
                 }}>
                     <Image src={UserIcon} width={30} height={30} alt='user-icon' className="mx-auto" />
                     LOG OUT

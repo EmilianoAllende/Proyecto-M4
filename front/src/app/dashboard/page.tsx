@@ -2,15 +2,27 @@
 
 import { AuthContext, AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { usePrivate } from "@/hooks/usePrivate";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Dashboard = () => {
     usePrivate();
 
     const { user } = useAuth();
-    const {name, email, address, phone } = user
+    const {name, email, address, phone } = user ?? {};
     const context = useContext(AuthContext);
     const orders = context.orders;
+    console.log(orders);
+
+    // useEffect(() => {
+    //     getUserOrders()
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setOrders(data);
+    //         })
+    //         .catch((error) => console.error("Error al obtener órdenes:", error));
+    // }, []);
+    //${API_URL}/users/orders
+    
     return (
         <AuthProvider>
         <div className="mx-auto text-justify w-fit text-tertiaryColor text-lg">

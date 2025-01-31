@@ -1,10 +1,4 @@
 export interface UserSession {
-    login: boolean;
-    token: string;
-    user: UserSessionData;
-};
-
-export interface UserSessionData {
     id: number;
     name: string;
     email: string;
@@ -13,6 +7,7 @@ export interface UserSessionData {
     role: string;
     credential: Credential;
     orders: Order[];
+    token: string;
 }
 
 export interface Order {
