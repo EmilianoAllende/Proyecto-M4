@@ -5,69 +5,76 @@ import Link from "next/link";
 import Image from "next/image";
 import Roby from "@/../public/CartToProducts.png";
 import { AuthContext } from "@/contexts/AuthContext";
-import { useCart } from "@/contexts/CartContext"; // Usa el hook para obtener el contexto
+import { useCart } from "@/contexts/CartContext";
 import { postOrders } from "@/app/services/orders";
 import swal from "sweetalert";
 
 const CartDetail = () => {
-    const { user, orders, setOrders } = useContext(AuthContext);
-    const { items: cart, emptyCart } = useCart();
+    const { user, addOrder } = useContext(AuthContext);
+    const { items: cart, emptyCart, removeItemFromCart } = useCart();
 
     const handleBuy = async () => {
-        
-        await postOrders(user?.id || 0, user?.token || "", cart).then((res) => {
-            if (res.status === "approved") {
-                setOrders([...orders, { id: parseInt(res.id) }]);
+        const res = await postOrders(user?.id || 0, user?.token || "", cart);
 
-                swal({
-                    title: "Purchased!",
-                    text: "Your order was successfully processed.",
-                    icon: "success",
-                });
-                emptyCart();
-            } else {
-                swal({
-                    title: "Error",
-                    text: `Your order can't be processed. ${res}`,
-                    icon: "error",
-                });
-            }
-        });
+        if (res.status === "approved") {
+            addOrder(parseInt(res.id));
+            swal("Purchased!", "Your order was successfully processed.", "success");
+            emptyCart();
+        } else {
+            swal("Error", `Your order can't be processed. ${res}`, "error");
+        }
     };
 
     return (
-        <div className="mx-auto place-items-center">
+        <div className="max-w-4xl mx-auto p-4 bg-primaryColor shadow-lg rounded-lg">
             {cart.length === 0 ? (
-                <div className="mx-auto place-items-center">
-                    <h2 className="bg-tertiaryColor text-xl text-center rounded-xl">
-                        Cart is empty. <br />
-                        You need to add{" "}
-                        <Link href="/products" className="bg-secondaryColor rounded-full p-1 text-quaternaryColor">
-                            Products
-                        </Link>{" "}
-                        first.
-                    </h2>
-                    <Image src={Roby} width={400} alt="Buy-Img" className="rounded-xl border-primaryColor" />
+                <div className="flex flex-col items-center text-center">
+                    <h2 className="bg-tertiaryColor text-3xl text-center font-bold rounded-xl px-3">CART IS EMPTY.</h2>
+                    <Image src={Roby} width={400} alt="Buy-Img" />
+                    <Link href="/products">
+                        <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                            Go to PRODUCTS
+                        </button>
+                    </Link>
                 </div>
             ) : (
-                cart.map((item, index) => (
-                    <div
-                        key={index}
-                        className="bg-secondaryColor bg-opacity-70 text-tertiaryColor items-center w-fit rounded-lg p-3 mx-auto"
-                    >
-                        <span>{item.name}</span>
-                        <span className="ml-8">{`$ ${item.price}`}</span>
-                        <span>{item.image}</span>
+                <div className="grid">
+                    <h2 className="text-2xl font-semibold text-white mb-4 text-center">YOUR CART</h2>
+                    <div className="space-y-4">
+                        {cart.map((item) => (
+                            <div key={item.id} className="flex justify-between items-center p-4 border-b">
+                                <div className="flex w-full h-30 items-center">
+                                    <h3 className="text-lg font-medium text-quaternaryColor mr-auto">{item.name}</h3>
+                                    <Image src={item.image} alt="product_image" width={50} height={50} className="mr-36 h-auto"/>
+                                    <p className=" text-tertiaryColor justify-center">${item.price}</p>
+                                </div>
+                                <button
+                                    onClick={() => removeItemFromCart(item.id)}
+                                    className=" ml-3 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
                     </div>
-                ))
+                                <button
+                                    onClick={() => emptyCart()}
+                                    className="justify-self-end mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                                >
+                                    Remove All
+                                </button>
+                    <div className="grid justify-center items-center mt-6">
+                        <p className="text-lg text-green-400 font-extrabold">Total: ${cart.reduce((acc, item) => acc + item.price, 0)}</p>
+                        <button
+                            onClick={handleBuy}
+                            disabled={cart.length === 0}
+                            className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+                        >
+                            BUY
+                        </button>
+                    </div>
+                </div>
             )}
-            <button onClick={handleBuy}
-                disabled={cart.length === 0}
-                className={`mx-auto w-32 rounded-full px-4 font-black text-3xl ${
-                    cart.length === 0
-                        ? "bg-transparent text-transparent"
-                        : "bg-quaternaryColor text-pink-950"
-                }`}>B  U  Y</button>
         </div>
     );
 };

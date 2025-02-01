@@ -10,7 +10,7 @@ import { useCart } from "./CartContext";
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   setUser: () => {},
-  login: (form: LoginData) => {},
+  login: () => {},
   logout: () => {},
   orders: [],
   setOrders: () => {},
@@ -27,12 +27,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { emptyCart } = useCart();
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-    if (user && token) {
-      setUser({ ...JSON.parse(user), token }); // Añade token en el objeto user
-      setToken(token);
+    if (storedUser && storedToken) {
+      setUser({ ...JSON.parse(storedUser), token: storedToken });
+      setToken(storedToken);
       setIsAuthenticated(true);
     } else {
       setUser(null);
@@ -42,11 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (user?.orders) {
-      setOrders(user.orders);
-    } else {
-      setOrders([]);
-    }
+    setOrders(user?.orders || []);
   }, [user]);
 
   const login = async (form: LoginData) => {
@@ -69,9 +65,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    localStorage.removeItem("cart")
+    emptyCart();
     setUser(null);
     setIsAuthenticated(false);
+  };
+
+  const addOrder = (orderId: number) => {
+    setOrders([...orders, { id: orderId }]);
+    emptyCart();
   };
 
   return (
@@ -85,6 +86,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated,
         login,
         token,
+        addOrder,
       }}
     >
       {children}
@@ -92,7 +94,4 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);

@@ -6,7 +6,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 
 const AuthProtected = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated === false) {

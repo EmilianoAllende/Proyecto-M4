@@ -37,7 +37,7 @@ import UserIcon from '../utils/user-application-identity-authentication-login-sv
 import { useCart } from '@/contexts/CartContext';
 
 export const UserWidget = () => {
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
 
     const {emptyCart} = useCart()
     return (
