@@ -7,7 +7,6 @@ import { Toast } from "../Toast";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-
     const { login } = useAuth();
     const router = useRouter();
     const { setUser } = useContext(AuthContext);
@@ -30,10 +29,20 @@ export default function LoginForm() {
                 router.push("/home");
             }, 3000);
         } catch (error: any) {
-            const errorMessage = error?.response?.data?.message || "Something went wrong. Please try again."
-            const messageToShow = ["Invalid password", "User does not exist"].includes(errorMessage) ? "Invalid Credentials": errorMessage;
-            setError(messageToShow);
-            Toast.fire("Error", messageToShow, "error");
+            console.error("Login error: ", error); // Log completo del error
+            let errorMessage = "Something went wrong. Please try again.";
+            
+            const serverMessage = error.response?.data?.message || error.message;
+            if (serverMessage) {
+                if (serverMessage.includes("Invalid password") || serverMessage.includes("User does not exist")) {
+                    errorMessage = "Invalid Credentials";
+                } else {
+                    errorMessage = serverMessage;
+                }
+            }
+            
+            setError(errorMessage);
+            Toast.fire("Error", errorMessage, "error");
         }
     };
 
@@ -46,7 +55,6 @@ export default function LoginForm() {
         <div className="flex flex-col">
             <div className="mx-auto">
                 <form onSubmit={handleSubmit} className="flex flex-col">
-
                     <div>
                         <label className="bg-primaryColor rounded-md p-1 font-semibold text-quaternaryColor">
                             USER
@@ -62,7 +70,6 @@ export default function LoginForm() {
                             required
                         />
                     </div>
-
                     <div className="mt-2 mb-2">
                         <label className="bg-primaryColor rounded-md p-1 font-semibold text-quaternaryColor">
                             PASSWORD
@@ -78,7 +85,6 @@ export default function LoginForm() {
                             required
                         />
                     </div>
-
                     <button
                         type="submit"
                         className={`bg-primaryColor rounded-full p-2 mx-auto text-quaternaryColor ${
@@ -89,7 +95,6 @@ export default function LoginForm() {
                     >
                         SUBMIT
                     </button>
-
                     <Link href="/auth/register" className="mt-5 mx-auto">
                         <button
                             type="submit"
@@ -102,4 +107,4 @@ export default function LoginForm() {
             </div>
         </div>
     );
-};
+}
