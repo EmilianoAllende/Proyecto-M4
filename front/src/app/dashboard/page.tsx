@@ -11,7 +11,6 @@ const Dashboard = () => {
     const {name, email, address, phone } = user ?? {};
     const context = useContext(AuthContext);
     const orders = context.orders;
-    console.log(orders);
 
     // useEffect(() => {
     //     getUserOrders()
@@ -25,25 +24,27 @@ const Dashboard = () => {
     
     return (
         <AuthProvider>
-        <div className="mx-auto text-justify w-fit text-tertiaryColor text-lg">
-            <h1 className="bg-primaryColor rounded-xl p-4 font-bold text-4xl">Dashboard</h1>
-            <div className="bg-primaryColor bg-opacity-90 rounded-xl p-4 my-3">
-                <h2>NAME: {name}</h2>
-                <h4>EMAIL: {email}</h4>
-                <h4>PHONE: {phone}</h4>
-                <h4>ADRESS: {address}</h4>
-            </div>
+            <div className="mx-auto text-justify w-fit text-tertiaryColor text-lg">
+                <h1 className="bg-primaryColor rounded-xl p-4 font-bold text-4xl">DASHBOARD</h1>
+                <div className="bg-primaryColor bg-opacity-90 rounded-xl p-4 my-3">
+                    <h2>NAME: {name}</h2>
+                    <h4>EMAIL: {email}</h4>
+                    <h4>PHONE: {phone}</h4>
+                    <h4>ADRESS: {address}</h4>
+                </div>
 
-            <div className="mt-4 bg-secondaryColor bg-opacity-90 rounded-xl p-4">
-                <h5>ORDERS</h5>
-                {orders.length && orders.length > 0 ? 
-                    orders.map((order, index) => (
-                        <div key={index}>
-                            <p>Order ID: {order.id}</p>
-                        </div>
-                )) : "No orders yet."}
+                <div className="mt-4 bg-secondaryColor bg-opacity-90 rounded-xl p-4">
+                    <h5 className="">ORDERS</h5>
+                    {orders.length && orders.length > 0 ? 
+                        orders.map((order, index) => (
+                            <div key={index} className="border-b-2 border-rose-50 mb-3">
+                                <p>Status: {order.status}</p>
+                                <p>Date: {order.date}</p>
+                                <li>Products: {order.products}</li>
+                            </div>
+                    )) : "No orders yet."}
+                </div>
             </div>
-        </div>
         </AuthProvider>
     );
 };

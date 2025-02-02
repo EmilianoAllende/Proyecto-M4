@@ -10,7 +10,7 @@ const workPage = () => {
                 <Image src={okayRobot} alt="work-robot" width={450} height={400}/>
                 <div className="ml-3 p-3 h-fit bg-primaryColor rounded-3xl text-2xl">
                     <h3 className="mb-2 text-center">WHY WORK WITH US?</h3>
-                    <p>At HomeTech ® , we believe that innovation and passion are the keys to creating high-quality electronic products that enhance people&apos;s lives. Here are a few reasons why working with us is an excellent decision:</p>
+                    <p>At TechHome® , we believe that innovation and passion are the keys to creating high-quality electronic products that enhance people&apos;s lives. Here are a few reasons why working with us is an excellent decision:</p>
                         <li>Constant Innovation: We strive to be at the forefront of technology, developing products that change the way we live and work.</li>
                         <li>Supportive Culture: We offer an inclusive and collaborative work environment where every employee is valued and supported in their professional development.</li>
                         <li>Growth Opportunities: We have continuous training and development programs that allow you to grow within the company and advance in your career.</li>

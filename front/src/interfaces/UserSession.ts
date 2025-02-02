@@ -1,3 +1,5 @@
+import { IProduct } from "./Product";
+
 export interface UserSession {
     id: number;
     name: string;
@@ -12,8 +14,9 @@ export interface UserSession {
 
 export interface Order {
     id: number;
-    status?: string;
-    date?: string;
+    status: string;
+    date: string;
+    products: IProduct[];
 };
 
 interface Credential {
