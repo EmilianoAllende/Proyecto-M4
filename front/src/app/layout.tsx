@@ -37,7 +37,7 @@ export default function RootLayout({
                   <Navbar />
                 </ExcludedWrapper>
 
-                <main className="container">{children}</main>
+                <main className="mx-auto w-[100%] md:w-10/12 md:mt-24 md:mb-2">{children}</main>
 
                 <ExcludedWrapper>
                   <Footer />

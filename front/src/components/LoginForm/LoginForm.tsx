@@ -29,7 +29,6 @@ export default function LoginForm() {
                 router.push("/home");
             }, 3000);
         } catch (error: any) {
-            console.error("Login error: ", error); // Log completo del error
             let errorMessage = "Something went wrong. Please try again.";
             
             const serverMessage = error.response?.data?.message || error.message;
@@ -40,7 +39,6 @@ export default function LoginForm() {
                     errorMessage = serverMessage;
                 }
             }
-            
             setError(errorMessage);
             Toast.fire("Error", errorMessage, "error");
         }

@@ -42,6 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    console.log("User data:", user); // Verifica si el user tiene orders y products
     setOrders(user?.orders || []);
   }, [user]);
 
@@ -52,6 +53,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         form
       );
       setUser(response.data.user);
+      console.log("User from API:", response.data.user); //Ver data
+      console.log("Orders from API:", response.data.user.orders);
+
       setToken(response.data.token);
       setIsAuthenticated(true);
 

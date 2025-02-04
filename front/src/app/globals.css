@@ -30,10 +30,6 @@ nav {
   align-items: center;
 }
 
-.container {
-  @apply mx-auto w-10/12 mt-24 mb-2;
-}
-
 footer {
   @apply mt-auto bg-primaryColor text-tertiaryColor;
 }

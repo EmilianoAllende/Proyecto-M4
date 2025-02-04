@@ -33,3 +33,13 @@ export const getProductById = async (id: number): Promise<IProduct> => {
     if(!product) {notFound()}
     return product;
 };
+
+export const getProductByCategoryId = async (categoryId: number) => {
+    try {
+        const products: IProduct[] = await getProducts();
+        const productsFiltered: IProduct[] = products.filter((product) => product.categoryId === categoryId);
+        return productsFiltered
+    } catch (error: any) {
+        throw new Error(error);
+    };
+};

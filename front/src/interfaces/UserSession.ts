@@ -10,7 +10,7 @@ export interface UserSession {
     credential: Credential;
     orders: Order[];
     token: string;
-}
+};
 
 export interface Order {
     id: number;
