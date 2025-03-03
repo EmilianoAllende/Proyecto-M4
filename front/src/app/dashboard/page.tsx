@@ -1,18 +1,20 @@
 "use client";
 
-import { AuthContext, AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AuthContext, useAuth } from "@/contexts/AuthContext";
+import router from "next/router";
 import { useContext } from "react";
 
 const Dashboard = () => {
     useAuth()
 
     const { user } = useAuth();
+    const { isAuthenticated } = useAuth();
     const {name, email, address, phone } = user ?? {};
     const context = useContext(AuthContext);
     const orders = context.orders;
 
     return (
-        <AuthProvider>
+        isAuthenticated ? (
             <div className="mx-auto text-justify w-fit text-tertiaryColor text-lg">
                 <h1 className="bg-primaryColor rounded-xl p-4 font-bold text-4xl">DASHBOARD</h1>
                 <div className="bg-primaryColor bg-opacity-90 rounded-xl p-4 my-3">
@@ -37,7 +39,9 @@ const Dashboard = () => {
                     : "No orders yet."}
                 </div>
             </div>
-        </AuthProvider>
+            ) : 
+                router.push("/")
+            
     );
 };
 

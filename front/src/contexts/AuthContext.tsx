@@ -42,7 +42,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    console.log("User data:", user); // Verifica si el user tiene orders y products
     setOrders(user?.orders || []);
   }, [user]);
 
@@ -53,16 +52,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         form
       );
       setUser(response.data.user);
-      console.log("User from API:", response.data.user); //Ver data
-      console.log("Orders from API:", response.data.user.orders);
-
       setToken(response.data.token);
       setIsAuthenticated(true);
 
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", response.data.token);
-    } catch (error: any) {
-      throw error.response?.data || error.message;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log("Este es el error del AuthContext", error.message);
+      }
+      else {
+        console.log("Error desconocido en AuthContext", error);
+      }
     }
   };
 

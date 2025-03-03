@@ -9,5 +9,6 @@ export interface AuthContextProps {
     logout: () => void;
     orders: Order[];
     setOrders: (orders: Order[]) => void;
+    //addOrder: unknown;
     token: string | null;
 };
