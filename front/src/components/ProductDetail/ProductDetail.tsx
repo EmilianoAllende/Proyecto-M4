@@ -19,9 +19,8 @@ export default function ProductDetail ({ product }: ProductProps) {
             <div className="m-auto text-center">
                 <p>Stock: {stock}</p>
                 <p className='py-4'>${price}</p>
-                <div className='bg-secondaryColor rounded-3xl py-1 px-2 text-cyan-950'>
+                <div className='bg-secondaryColor rounded-3xl py-1 px-2 text-green-500 font-semibold'>
                     <AddProduct product={product}/>
-
                 </div>
             </div>
         </div>

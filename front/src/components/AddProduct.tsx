@@ -13,4 +13,4 @@ export default function AddProduct({ product }: { product: IProduct }) {
     }, [product, countItems]);
 
     return <button onClick={() => addItemToCart(product)} disabled={disabled}>ADD TO CART</button>;
-}
+};
