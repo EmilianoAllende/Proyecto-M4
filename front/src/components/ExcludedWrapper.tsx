@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const excludePaths = ["/", "/auth/login", "/auth/register"];
+const excludePaths = ["/"];
 
 export default function ExcludedWrapper({
     children

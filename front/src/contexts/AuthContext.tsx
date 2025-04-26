@@ -16,6 +16,7 @@ export const AuthContext = createContext<AuthContextProps>({
   setOrders: () => {},
   isAuthenticated: null,
   token: null,
+  addOrder: () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -31,9 +32,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
-      setUser({ ...JSON.parse(storedUser), token: storedToken });
+      const fullUser = { ...JSON.parse(storedUser), token: storedToken };
+      setUser(fullUser);
       setToken(storedToken);
       setIsAuthenticated(true);
+      console.log("Hydrated user:", fullUser);
     } else {
       setUser(null);
       setToken(null);
@@ -41,9 +44,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const fetchOrders = async (userId: number, token: string, setOrders: (orders: Order[]) => void) => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/orders?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      setOrders(response.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+
   useEffect(() => {
-    setOrders(user?.orders || []);
-  }, [user]);
+    if (user?.id && token) {
+      fetchOrders(user.id, token, setOrders);
+    }
+  }, [user, token]);
 
   const login = async (form: LoginData) => {
     try {
@@ -51,13 +70,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
         form
       );
-      setUser(response.data.user);
+      setUser({ ...response.data.user, token: response.data.token });
+      console.log("Logged user:", response.data.user);
       setToken(response.data.token);
       setIsAuthenticated(true);
 
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("user", JSON.stringify({ ...response.data.user, token: response.data.token }));
       localStorage.setItem("token", response.data.token);
-    } catch (error: unknown) {
+      console.log("USER after login:", { ...response.data.user, token: response.data.token });
+    } catch (error) {
       if (error instanceof Error) {
         console.log("Este es el error del AuthContext", error.message);
       }
@@ -65,6 +86,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log("Error desconocido en AuthContext", error);
       }
     }
+    
   };
 
   const logout = () => {
@@ -72,12 +94,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("token");
     emptyCart();
     setUser(null);
+    setToken(null);
     setIsAuthenticated(false);
   };
 
   const addOrder = (orderId: number) => {
-    setOrders([...orders, { id: orderId }]);
+    console.log("Adding order with ID:", orderId);
+    console.log("User ID:", user?.id);
+    console.log("Token:", token);
+    console.log("Orden agregada con ID:", orderId);
+    
     emptyCart();
+
+    if (user?.id && token) {
+      fetchOrders(user.id, token, setOrders);
+    }
   };
 
   return (
@@ -97,6 +128,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

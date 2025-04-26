@@ -12,7 +12,8 @@ usersRouter.post("/register", validateUserRegister, registerUser);
 usersRouter.post("/login", validateUserLogin, login);
 
 usersRouter.get("/orders", checkLogin, async (req: Request, res: Response) => {
-  const { userId } = req.body;
+  console.log("Query params:", req.query);
+  const userId = Number(req.query.userId);
   const orders = await OrderRepository.find({
     relations: ["products"],
     where: { user: { id: userId } },

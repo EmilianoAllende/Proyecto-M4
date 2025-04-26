@@ -8,6 +8,10 @@ import CartStatus from '../CartStatus';
 import catgoriesToPreload from '@/helpers/categories';
 
 export default function Navbar() {
+
+    // const cartHiding = () => {
+    //     if(!user)
+    // };
     return (
         <nav className="w-screen">
             <div className='md:hidden flex'>

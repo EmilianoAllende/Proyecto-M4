@@ -1,18 +1,21 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState, useContext } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
-import { AuthContext, useAuth } from "@/contexts/AuthContext";
-import { Toast } from "../Toast";
 import { useRouter } from "next/navigation";
+import { LoginData } from "@/interfaces/LoginData";
+import { AxiosError } from "axios";
+import { Toast } from "../Toast";
 
 export default function LoginForm() {
     const { login } = useAuth();
     const router = useRouter();
-    const { setUser } = useContext(AuthContext);
 
-    const initialData = { email: "", password: "" };
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState<LoginData>({
+        email: "",
+        password: ""
+    });
     const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -28,12 +31,16 @@ export default function LoginForm() {
             setTimeout(() => {
                 router.push("/home");
             }, 3000);
-        } catch (error: any) {
+        } catch (err) {
+            const error = err as AxiosError<{ message: string }>;
             let errorMessage = "Something went wrong. Please try again.";
-            
+
             const serverMessage = error.response?.data?.message || error.message;
             if (serverMessage) {
-                if (serverMessage.includes("Invalid password") || serverMessage.includes("User does not exist")) {
+                if (
+                    serverMessage.includes("Invalid password") ||
+                    serverMessage.includes("User does not exist")
+                ) {
                     errorMessage = "Invalid Credentials";
                 } else {
                     errorMessage = serverMessage;
@@ -101,8 +108,12 @@ export default function LoginForm() {
                             REGISTER
                         </button>
                     </Link>
+
+                    {error && (
+                        <p className="text-red-500 mt-2 text-center font-semibold">{error}</p>
+                    )}
                 </form>
             </div>
         </div>
     );
-}
+};

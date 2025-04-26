@@ -4,20 +4,25 @@ import { useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Roby from "@/../public/CartToProducts.png";
-import { AuthContext } from "@/contexts/AuthContext";
+import {  AuthContext } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { postOrders } from "@/app/services/orders";
 import swal from "sweetalert";
 
 const CartDetail = () => {
-    const { user, addOrder } = useContext(AuthContext);
     const { items: cart, emptyCart, removeItemFromCart } = useCart();
+    const { user, addOrder } = useContext(AuthContext);
 
     const handleBuy = async () => {
         const res = await postOrders(user?.id || 0, user?.token || "", cart);
 
         if (res.status === "approved") {
-            addOrder(parseInt(res.id));
+            if (addOrder) {
+                addOrder(res.id);
+            } else {
+                console.warn("addOrder is undefined. Order won't be updated in context.");
+            }
+
             swal("Purchased!", "Your order was successfully processed.", "success");
             emptyCart();
         } else {

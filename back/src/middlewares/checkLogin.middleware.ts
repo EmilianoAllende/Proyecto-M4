@@ -10,7 +10,8 @@ const checkLogin = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { userId: number };
+    const rawToken = token.startsWith("Bearer ") ? token.split(" ")[1] : token;
+    const decoded = jwt.verify(rawToken, JWT_SECRET) as { userId: number };
     req.body.userId = decoded.userId;
   } catch (error) {
     next(new ClientError("Invalid token"));

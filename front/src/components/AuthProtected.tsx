@@ -1,22 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, ReactNode } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
-const AuthProtected = ({ children }: { children: React.ReactNode }) => {
+const AuthProtected = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (!user) {
       router.push("/auth/login");
     }
-  }, [isAuthenticated, router]);
-
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>;
-  }
+  });
 
   return <>{children}</>;
 };
