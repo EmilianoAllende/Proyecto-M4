@@ -1,28 +1,15 @@
 "use client";
 
-import { createContext, useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Order, UserSession } from "@/interfaces/UserSession";
-import { AuthContextProps } from "@/interfaces/AuthContextProps";
 import { LoginData } from "@/interfaces/LoginData";
 import axios from "axios";
 import { useCart } from "./CartContext";
-
-export const AuthContext = createContext<AuthContextProps>({
-  user: null,
-  setUser: () => {},
-  login: () => {},
-  logout: () => {},
-  orders: [],
-  setOrders: () => {},
-  isAuthenticated: null,
-  token: null,
-  addOrder: () => {},
-});
+import { AuthContext } from "@/helpers/authContext";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
 
   const { emptyCart } = useCart();
@@ -35,12 +22,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const fullUser = { ...JSON.parse(storedUser), token: storedToken };
       setUser(fullUser);
       setToken(storedToken);
-      setIsAuthenticated(true);
       console.log("Hydrated user:", fullUser);
     } else {
       setUser(null);
       setToken(null);
-      setIsAuthenticated(false);
     }
   }, []);
 
@@ -73,7 +58,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser({ ...response.data.user, token: response.data.token });
       console.log("Logged user:", response.data.user);
       setToken(response.data.token);
-      setIsAuthenticated(true);
 
       localStorage.setItem("user", JSON.stringify({ ...response.data.user, token: response.data.token }));
       localStorage.setItem("token", response.data.token);
@@ -95,7 +79,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     emptyCart();
     setUser(null);
     setToken(null);
-    setIsAuthenticated(false);
   };
 
   const addOrder = (orderId: number) => {
@@ -119,7 +102,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         orders,
         setOrders,
-        isAuthenticated,
         login,
         token,
         addOrder,

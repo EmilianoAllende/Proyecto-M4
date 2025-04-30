@@ -1,17 +1,9 @@
 "use client";
 
 import { IProduct } from "@/interfaces/Product";
-import { createContext, useContext, useEffect, useState } from "react";
-import { ICartContextType } from "@/interfaces/CartContextType";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-
-const CartContext = createContext<ICartContextType>({
-    items: [],
-    addItemToCart: () => {},
-    removeItemFromCart: () => {},
-    emptyCart: () => {},
-    countItems: () => 0,
-});
+import { CartContext } from "@/helpers/createContext";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<IProduct[]>([]);
