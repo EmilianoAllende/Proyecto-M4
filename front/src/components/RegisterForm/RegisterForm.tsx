@@ -69,12 +69,10 @@ const RegisterForm = () => {
             router.push("/auth/login");
         }, 3000);
         } catch (error) {
-        console.error("Registration failed", error.response.data.message);
         Toast.fire("Error", error.response.data.message, "error");
         } finally {
         setIsSubmitting(false);
         }
-
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

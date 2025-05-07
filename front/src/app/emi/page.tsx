@@ -1,6 +1,6 @@
 "use client"
 
-import { AuthContext } from '@/contexts/AuthContext';
+import { AuthContext } from '@/helpers/authContext';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect } from 'react'
 
@@ -15,8 +15,8 @@ export default function Emi() {
         }, [user, router]
     )
     return (
-        <div>
-            hola
+        <div className='text-red-100 font-semibold text-lg bg-blue-950 place-self-center'>
+            HOLA
         </div>
     )
 };

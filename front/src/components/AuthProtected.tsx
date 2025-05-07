@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, ReactNode } from "react";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext } from "@/helpers/authContext";
 
 const AuthProtected = ({ children }: { children: ReactNode }) => {
   const router = useRouter();

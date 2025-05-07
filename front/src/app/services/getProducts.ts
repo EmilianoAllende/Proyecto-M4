@@ -6,8 +6,8 @@ import axios from "axios";
 const apiUrl = process.env.API_URL || "http://localhost:3001";
 
 export const getProducts = async (): Promise<IProduct[]> => {
-    const fetch = await axios.get(apiUrl + "/products")
     try {
+        const fetch = await axios.get(apiUrl + "/products")
         // Error común, olvidarse del [data].
         return fetch.data;
     } catch (error) {
@@ -17,9 +17,8 @@ export const getProducts = async (): Promise<IProduct[]> => {
             icon: 'error',
         })
     }
-    return fetch.data;
+    return [];
 };
-
 
 export const getFeaturedProducts = async (): Promise<IProduct[]> => {
     const res = await getProducts();
@@ -39,7 +38,11 @@ export const getProductByCategoryId = async (categoryId: number) => {
         const products: IProduct[] = await getProducts();
         const productsFiltered: IProduct[] = products.filter((product) => product.categoryId === categoryId);
         return productsFiltered
-    } catch (error: any) {
-        throw new Error(error);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        } else {
+            throw new Error("Unknown error occurred while filtering products by category.");
+        }
     };
 };

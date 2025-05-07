@@ -1,7 +1,7 @@
 //types
-import { Product } from '@/interfaces/Product';
+import { IProduct } from '@/interfaces/Product';
 
-const productsMock: Product[] = [
+const productsMock: IProduct[] = [
     {
         id: 0,
         name: "MOCK HomePod mini",

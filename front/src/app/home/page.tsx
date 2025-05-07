@@ -25,29 +25,6 @@ export default async function Home() {
                 </Link>
             </div>
 
-            {/* <div className="mt-20 p-10 bg-cyan-900 rounded-2xl shadow-xl text-center">
-                <h2 className="text-3xl font-bold mb-6">Explore More About Us</h2>
-                <div className="flex flex-col lg:flex-row justify-center gap-8">
-
-                    <div className="bg-tertiaryColor p-6 rounded-xl shadow-lg hover:scale-105 transition-all duration-300">
-                        <h3 className="text-2xl font-semibold mb-3">Who We Are</h3>
-                        <p className="text-sm mb-4">Discover our story and mission at TechHome.</p>
-                        <Link href="/about">
-                            <button className="bg-quaternaryColor text-black px-4 py-2 rounded-md hover:bg-white transition-all duration-300">Learn More</button>
-                        </Link>
-                    </div>
-
-                    <div className="bg-tertiaryColor p-6 rounded-xl shadow-lg hover:scale-105 transition-all duration-300">
-                        <h3 className="text-2xl font-semibold mb-3">Join Our Team</h3>
-                        <p className="text-sm mb-4">Be part of our technological revolution.</p>
-                        <Link href="/work">
-                            <button className="bg-quaternaryColor text-black px-4 py-2 rounded-md hover:bg-white transition-all duration-300">Join Us</button>
-                        </Link>
-                    </div>
-                </div>
-            </div> */}
-
-
             <div className="mt-20 p-10 bg-cyan-800 rounded-2xl shadow-xl text-center border-t-2 border-t-emerald-400">
                 <h2 className="text-3xl font-bold mb-6 border-b-2">Explore More About Us</h2>
                 <div className="flex flex-col lg:flex-row justify-center gap-20">

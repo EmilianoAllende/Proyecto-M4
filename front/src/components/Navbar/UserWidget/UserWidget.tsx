@@ -7,11 +7,11 @@ import UserIcon from '../utils/user-application-identity-authentication-login-sv
 import { useCart } from '@/contexts/CartContext';
 
 export const UserWidget = () => {
-    const { isAuthenticated, logout } = useAuth();
+    const { user, logout } = useAuth();
 
-    const {emptyCart} = useCart()
+    const { emptyCart } = useCart()
     return (
-        isAuthenticated ? (
+        user ? (
             <div className="flex flex-col">
                 <button onClick={() => {
                     logout();
