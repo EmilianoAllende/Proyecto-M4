@@ -9,9 +9,6 @@ import catgoriesToPreload from '@/helpers/categories';
 
 export default function Navbar() {
 
-    // const cartHiding = () => {
-    //     if(!user)
-    // };
     return (
         <nav className="w-screen">
             <div className='md:hidden flex'>
@@ -31,7 +28,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="ml-7">
-                    <Link href="home">
+                    <Link href="/home">
                         <Image src={HomeIcon} width={50} height={50} alt='home-icon' />
                     </Link>
                 </div>
