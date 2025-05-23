@@ -1,207 +1,179 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { validateRegisterForm } from "../../helpers/validateRegister";
-import RegisterFormInput from "./RegisterFormInput";
-import register from "@/app/services/register";
-import { Toast } from "../Toast";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
+import { useAuthForm } from '@/hooks/useAuthForm';
+import { validateRegisterForm } from '@/helpers/validateRegisterForm';
+import Swal from 'sweetalert2';
+import { useState } from 'react';
+import axios from 'axios';
 
-const RegisterForm = () => {
+type RegisterFormData = {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    phone: string;
+    address: string;
+};
 
+const initialValues: RegisterFormData = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    address: '',
+};
+
+export default function RegisterForm() {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const [data, setData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        address: "",
-        phone: "",
+    const {
+        data,
+        setData,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleValidation,
+        isFormValid,
+    } = useAuthForm<RegisterFormData>({
+        initialValues,
+        validate: validateRegisterForm,
     });
-
-    const [errors, setErrors] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        address: "",
-        phone: "",
-    });
-
-    const [touched, setTouched] = useState({
-        name: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
-        address: false,
-        phone: false,
-    });
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const validationErrors = handleValidation();
 
-        const { nameError, emailError, passwordError, confirmPasswordError, addressError, phoneError } =
-        validateRegisterForm(data);
-
-        if (nameError || emailError || passwordError || confirmPasswordError || addressError || phoneError) {
-        setErrors({
-            name: nameError,
-            email: emailError,
-            password: passwordError,
-            confirmPassword: confirmPasswordError,
-            address: addressError,
-            phone: phoneError,
-        });
-        return;
+        if (Object.values(validationErrors).some((error) => error !== '')) {
+            return;
         }
 
-        setIsSubmitting(true);
-        setErrors({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: ""});
+        setLoading(true);
 
         try {
-        await register(data);
-        Toast.fire("Great!", "You have been succesfully registered.", "success");
-        setData({ name: "", email: "", password: "", confirmPassword: "", address: "", phone: "" });
-        setTimeout(() => {
-            router.push("/auth/login");
-        }, 3000);
-        } catch (error) {
-        Toast.fire("Error", error.response.data.message, "error");
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message || 'Something went wrong');
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Account created. You can now login.',
+            });
+
+            setData(initialValues);
+            router.push('/auth/login');
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.response?.data?.message || 'An unexpected error occurred.',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong. Please try again.',
+                });
+            }
         } finally {
-        setIsSubmitting(false);
+            setLoading(false);
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-
-        const error = validateRegisterForm({ ...data, [name]: value })[`${name}Error`];
-        setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: error,
-        }));
-    };
-
-    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTouched({ ...touched, [e.target.name]: true });
-
-    const error = validateRegisterForm(data)[`${e.target.name}Error`];
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            [e.target.name]: error,
-        }));
-    };
-
-    const isFormValid =
-        !errors.name &&
-        !errors.email &&
-        !errors.password &&
-        !errors.confirmPassword &&
-        !errors.address &&
-        !errors.phone &&
-        data.name &&
-        data.email &&
-        data.password &&
-        data.confirmPassword &&
-        data.address &&
-        data.phone;
-
     return (
-        <form
-        className="mx-auto flex flex-col gap-5 bg-primary"
-        onSubmit={handleSubmit}
-        >
-        <RegisterFormInput
-            id="name"
-            label="Name"
-            name="name"
-            type="text"
-            value={data.name}
-            touched={touched.name}
-            error={errors.name}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+        <form className="flex flex-col gap-4 w-full max-w-md mx-auto" onSubmit={handleSubmit}>
+            <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={data.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.name && errors.name && <p className="text-red-500">{errors.name}</p>}
 
-        <RegisterFormInput
-            id="email"
-            label="Email"
-            name="email"
-            type="email"
-            value={data.email}
-            touched={touched.email}
-            error={errors.email}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={data.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.email && errors.email && <p className="text-red-500">{errors.email}</p>}
 
-        <RegisterFormInput
-            id="password"
-            label="Password"
-            name="password"
-            type="password"
-            value={data.password}
-            touched={touched.password}
-            error={errors.password}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={data.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.password && errors.password && <p className="text-red-500">{errors.password}</p>}
 
-        <RegisterFormInput
-            id="confirmPassword"
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            value={data.confirmPassword}
-            touched={touched.confirmPassword}
-            error={errors.confirmPassword}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+            <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={data.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.confirmPassword && errors.confirmPassword && (
+                <p className="text-red-500">{errors.confirmPassword}</p>
+            )}
 
-        <RegisterFormInput
-            id="address"
-            label="Address"
-            name="address"
-            type="address"
-            value={data.address}
-            touched={touched.address}
-            error={errors.address}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+            <input
+                type="text"
+                name="phone"
+                placeholder="Phone"
+                value={data.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.phone && errors.phone && <p className="text-red-500">{errors.phone}</p>}
 
-        <RegisterFormInput
-            id="phone"
-            label="Phone"
-            name="phone"
-            type="phone"
-            value={data.phone}
-            touched={touched.phone}
-            error={errors.phone}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-        />
+            <input
+                type="text"
+                name="address"
+                placeholder="Address"
+                value={data.address}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className="w-full border px-3 py-2 mt-1 bg-primaryColor text-tertiaryColor text-sm rounded-lg p-3"
+            />
+            {touched.address && errors.address && (
+                <p className="text-red-500">{errors.address}</p>
+            )}
 
-        <div className="mx-auto">
             <button
-            type="submit"
-            disabled={!isFormValid || isSubmitting}
-            className={`${
-                !isFormValid || isSubmitting
-                ? "bg-transparent text-transparent"
-                : "bg-primaryColor text-tertiaryColor"
-            } font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center`}
+                type="submit"
+                disabled={loading || !isFormValid}
+                className="btn btn-primary disabled:opacity-50"
             >
-            {isSubmitting ? "Submitting..." : "Submit"}
+                {loading ? 'Registering...' : 'Register'}
             </button>
-        </div>
         </form>
     );
 };
-
-export default RegisterForm;

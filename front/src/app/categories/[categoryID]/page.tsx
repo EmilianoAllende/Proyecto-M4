@@ -1,4 +1,4 @@
-import { getProductByCategoryId } from '@/app/services/getProducts';
+import { getProductByCategoryId } from '@/services/getProducts';
 import Card from '@/components/Card/Card';
 import React from 'react'
 

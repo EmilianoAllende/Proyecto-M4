@@ -15,7 +15,7 @@ export default function Landing() {
 
         <div className="absolute bottom-2 self-center">
           <Link href={"/home"} className="bg-primaryColor text-quaternaryColor rounded-2xl px-2 text-2xl md:text-4xl font-bold">
-                GO HOME
+                LET&apos;S START!
           </Link>
         </div>
 

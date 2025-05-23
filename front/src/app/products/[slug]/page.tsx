@@ -1,4 +1,4 @@
-import { getProductById } from "@/app/services/getProducts";
+import { getProductById } from "@/services/getProducts";
 import ProductDetail from "@/components/ProductDetail/ProductDetail";
 
 export default async function Product({

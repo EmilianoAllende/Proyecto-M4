@@ -6,7 +6,7 @@ import Image from "next/image";
 import Roby from "@/../public/CartToProducts.png";
 import { AuthContext } from "@/helpers/authContext";
 import { useCart } from "@/contexts/CartContext";
-import { postOrders } from "@/app/services/orders";
+import { postOrders } from "@/services/orders";
 import swal from "sweetalert";
 
 const CartDetail = () => {

@@ -15,6 +15,7 @@ const Dashboard = () => {
         };
     }, [router, user]);
 
+    console.log("ORDERS DATA:", orders);
     return (
         <div className="mx-auto text-justify w-fit text-tertiaryColor text-lg">
             <h1 className="bg-primaryColor rounded-xl p-4 font-bold text-4xl">DASHBOARD</h1>

@@ -19,7 +19,12 @@ usersRouter.get("/orders", checkLogin, async (req: Request, res: Response) => {
     where: { user: { id: userId } },
   });
 
-  res.send(orders);
+  const sanitizedOrders = orders.map(order => ({
+    ...order,
+    products: order.products ?? [], // ← Si es null o undefined, lo reemplaza por []
+  }));
+
+  res.send(sanitizedOrders);
 });
 
 export default usersRouter;

@@ -7,9 +7,9 @@ export default function AuthLayout({
     children: React.ReactNode;
 }>) {
     return (
-            <div className="mx-auto w-11/12 -mt-12">
+            <div className="mx-auto">
                 <div className="flex flex-row items-center">
-                    <div className="w-1/2 justify-items-end">
+                    <div className="w-1/2 justify-items-end ">
                         <h1 className="justify-self-center bg-primaryColor text-tertiaryColor rounded-3xl font-extrabold text-4xl px-6">{"Hi User!"}</h1>
                         <Image src={hiRob} alt="greetingRobot" width={600} className="rounded-xl"/>
                     </div>

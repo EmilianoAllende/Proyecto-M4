@@ -22,7 +22,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const fullUser = { ...JSON.parse(storedUser), token: storedToken };
       setUser(fullUser);
       setToken(storedToken);
-      console.log("Hydrated user:", fullUser);
+
     } else {
       setUser(null);
       setToken(null);
