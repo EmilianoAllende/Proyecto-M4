@@ -6,7 +6,6 @@ import { LoginData } from "@/interfaces/LoginData";
 import axios from "axios";
 import { useCart } from "./CartContext";
 import { AuthContext } from "@/helpers/authContext";
-import Swal from "sweetalert2";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
@@ -80,11 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
   };
 
-  const addOrder = (orderId: number) => {
-    Swal.fire({
-      title:'ORDER ADDED',
-      text:`Order created with ID ${orderId}`
-    })
+  const addOrder = () => {
 
     emptyCart();
 

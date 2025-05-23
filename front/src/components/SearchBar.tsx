@@ -1,14 +1,10 @@
 "use client"
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useProducts } from "../context/useProducts";
+import { useRouter } from "next/router";
 import { IProduct } from "@/interfaces/Product";
-import { getRoute } from "@/app/shared/utils/getRoute";
-import { Route } from "@/app/shared/constants/routes";
 
 const SearchBar = () => {
-  const { products } = useProducts();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
   const router = useRouter();
@@ -22,7 +18,7 @@ const SearchBar = () => {
   };
 
   const navigateToProduct = (id: string) => {
-    router.push(getRoute(Route.PRODUCT, { id }));
+    router.push();
     
     setSearchTerm("");
     setFilteredProducts([]);

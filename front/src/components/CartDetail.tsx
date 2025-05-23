@@ -7,7 +7,7 @@ import Roby from "@/../public/CartToProducts.png";
 import { AuthContext } from "@/helpers/authContext";
 import { useCart } from "@/contexts/CartContext";
 import { postOrders } from "@/services/orders";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 const CartDetail = () => {
     const { items: cart, emptyCart, removeItemFromCart } = useCart();
@@ -23,8 +23,12 @@ const CartDetail = () => {
                 console.warn("addOrder is undefined. Order won't be updated in context.");
             }
 
-            swal("Purchased!", "Your order was successfully processed.", "success");
+            Swal.fire({
+                title: "Purchased!",
+                text: `Your order was successfully processed with ID: ${res.id}.`,
+                icon: "success"});
             emptyCart();
+
         } else {
             swal("Error", `Your order can't be processed. ${res}`, "error");
         }
