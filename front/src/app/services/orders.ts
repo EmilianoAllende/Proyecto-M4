@@ -1,6 +1,6 @@
 import { IProduct } from "@/interfaces/Product";
 
-const apiUrl = process.env.API_URL || "http://localhost:3001";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export const postOrders = async (userId: number, token: string, cart: IProduct[]) => {
     const data = { userId, products: cart?.map((item) => item.id) };

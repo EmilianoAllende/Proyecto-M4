@@ -6,6 +6,7 @@ import { LoginData } from "@/interfaces/LoginData";
 import axios from "axios";
 import { useCart } from "./CartContext";
 import { AuthContext } from "@/helpers/authContext";
+import Swal from "sweetalert2";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
@@ -56,12 +57,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         form
       );
       setUser({ ...response.data.user, token: response.data.token });
-      console.log("Logged user:", response.data.user);
-      setToken(response.data.token);
 
       localStorage.setItem("user", JSON.stringify({ ...response.data.user, token: response.data.token }));
       localStorage.setItem("token", response.data.token);
-      console.log("USER after login:", { ...response.data.user, token: response.data.token });
+
     } catch (error) {
       if (error instanceof Error) {
         console.log("Este es el error del AuthContext", error.message);
@@ -82,11 +81,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addOrder = (orderId: number) => {
-    console.log("Adding order with ID:", orderId);
-    console.log("User ID:", user?.id);
-    console.log("Token:", token);
-    console.log("Orden agregada con ID:", orderId);
-    
+    Swal.fire({
+      title:'ORDER ADDED',
+      text:`Order created with ID ${orderId}`
+    })
+
     emptyCart();
 
     if (user?.id && token) {

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import swal from "sweetalert";
 import axios from "axios";
 
-const apiUrl = process.env.API_URL || "http://localhost:3001";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export const getProducts = async (): Promise<IProduct[]> => {
     try {
