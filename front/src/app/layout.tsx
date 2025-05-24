@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { AuthProvider } from "../contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import CategoriesBar from "@/components/Categories";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
               <CartProvider>
                 <ExcludedWrapper>
                   <Navbar />
+                  <CategoriesBar />
                 </ExcludedWrapper>
 
                 <main className="mx-auto w-[100%] md:w-10/12 md:mt-24 md:mb-2">{children}</main>

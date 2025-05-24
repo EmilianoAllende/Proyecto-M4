@@ -7,7 +7,7 @@ export default async function Home() {
     const featuredProducts: IProduct[] = await getFeaturedProducts();
 
     return (
-        <div className="min-h-screen border-primaryColor border-8 border-y-0 bg-cyan-600 bg-opacity-60 rounded-xl text-white">
+        <div className="min-h-screen border-primaryColor border-8 border-y-0 bg-cyan-600 bg-opacity-60 rounded-xl text-white mt-6">
             <div className="relative w-full h-60 bg-gradient-to-r from-quaternaryColor to-tertiaryColor flex items-center justify-center text-4xl font-extrabold shadow-lg rounded-2xl">
                 <p className="animate-pulse">🔥 Limited-Time Offers! Get Yours Now! 🔥</p>
             </div>
