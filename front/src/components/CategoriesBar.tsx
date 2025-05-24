@@ -13,9 +13,9 @@ export default function CategoriesBar() {
         const currentScrollY = window.scrollY;
 
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            setShow(true); // scroll hacia abajo
+            setShow(true);
         } else {
-            setShow(false); // scroll hacia arriba
+            setShow(false);
         }
 
         setLastScrollY(currentScrollY);
@@ -27,7 +27,7 @@ export default function CategoriesBar() {
 
     return (
         <div
-        className={`hidden md:flex fixed top-8 left-0 w-full justify-center items-center bg-white shadow-md py-2 transition-transform duration-300 ${
+        className={`hidden md:flex fixed top-8 left-0 w-full justify-center items-center bg-orange-200 shadow-md py-2 transition-transform duration-300 ${
             show ? "translate-y-0" : "translate-y-full"
         }`}
         >

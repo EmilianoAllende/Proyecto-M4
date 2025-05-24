@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { AuthProvider } from "../contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
-import CategoriesBar from "@/components/Categories";
+import CategoriesBar from "@/components/CategoriesBar";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",

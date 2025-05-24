@@ -1,4 +1,4 @@
-import { getProducts } from "../../services/getProducts";
+import { getProducts } from "@/services/getProducts";
 import { IProduct } from "@/interfaces/Product";
 import Card from "@/components/Card/Card";
 
