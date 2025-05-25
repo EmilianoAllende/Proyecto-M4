@@ -6,6 +6,7 @@ import { LoginData } from "@/interfaces/LoginData";
 import axios from "axios";
 import { useCart } from "./CartContext";
 import { AuthContext } from "@/helpers/authContext";
+import Swal from "sweetalert2";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserSession | null>(null);
@@ -71,13 +72,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
   };
 
-  const logout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    emptyCart();
-    setUser(null);
-    setToken(null);
+  const logout = async () => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You will be logged out of your account.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    });
+
+    if (result.isConfirmed) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      emptyCart();
+      setUser(null);
+      setToken(null);
+
+      await Swal.fire({
+        title: 'Logged out',
+        text: 'You have been successfully logged out.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
   };
+
 
   const addOrder = () => {
 
