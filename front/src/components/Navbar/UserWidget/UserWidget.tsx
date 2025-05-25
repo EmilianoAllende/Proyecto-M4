@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
-import UserIcon from '../utils/user-application-identity-authentication-login-svgrepo-com.svg';
+import UserIcon from '@/utils/user-application-identity-authentication-login-svgrepo-com.svg';
 import { useCart } from '@/contexts/CartContext';
 
 export const UserWidget = () => {

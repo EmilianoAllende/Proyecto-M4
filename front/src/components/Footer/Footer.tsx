@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import lin from "./utils/linkedin-round-svgrepo-com.svg";
-import git from "./utils/github-round-svgrepo-com.svg";
-import insta from "./utils/instagram-round-svgrepo-com.svg";
-import face from "./utils/facebook-round-svgrepo-com.svg";
+import lin from "@/utils/linkedin-round-svgrepo-com.svg";
+import git from "@/utils/github-round-svgrepo-com.svg";
+import insta from "@/utils/instagram-round-svgrepo-com.svg";
+import face from "@/utils/facebook-round-svgrepo-com.svg";
 
 const Footer = () => {
     return (
