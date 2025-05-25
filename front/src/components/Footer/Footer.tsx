@@ -10,13 +10,17 @@ const Footer = () => {
         <footer className="bg-secondaryColor font-semibold">
             <div className="w-10/12 mx-auto grid grid-cols-3">
                 <div className="my-auto mr-auto flex flex-col gap-1">
-                    <Link href={"/work"}>WORK WITH US</Link>
-                    <p className="mx-auto">CONTACT</p>
+                    <Link href={"/work"} className="hover:underline">WORK WITH US</Link>
+                    <a href="https://wa.me/5491123456789" target="_blank" rel="noopener noreferrer" className="hover:underline mx-auto">
+                        CONTACT
+                    </a>
                 </div>
 
                 <div className="my-auto text-center">
                     <p>Copyright © 1994-2024 Emiliano Allende</p>
-                    <p>emilianoallende94@gmail.com</p>
+                    <a href="mailto:emilianoallende94@gmail.com" className="hover:underline">
+                        emilianoallende94@gmail.com
+                    </a>
                 </div>
 
                 <div className="grid grid-cols-2 ml-auto">
