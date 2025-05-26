@@ -3,7 +3,7 @@
 import { IProduct } from "@/interfaces/Product";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { CartContext } from "@/helpers/createContext";
+import { CartContext } from "@/helpers/cartContext";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<IProduct[]>([]);

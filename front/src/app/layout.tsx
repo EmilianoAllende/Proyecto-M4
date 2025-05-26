@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import { AuthProvider } from "../contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import CategoriesBar from "@/components/CategoriesBar";
+import { FavoriteProvider } from "@/contexts/FavoritesContext";
 
 const primaryFont = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,16 +35,18 @@ export default function RootLayout({
           <body className={`${primaryFont.variable} ${secondaryFont.variable} antialiased`}>
             <AuthProvider>
               <CartProvider>
-                <ExcludedWrapper>
-                  <Navbar />
-                  <CategoriesBar />
-                </ExcludedWrapper>
+                <FavoriteProvider>
+                  <ExcludedWrapper>
+                    <Navbar />
+                    <CategoriesBar />
+                  </ExcludedWrapper>
 
-                <main className="mx-auto w-[100%] md:w-10/12 md:mt-24 md:mb-2">{children}</main>
+                  <main className="mx-auto w-[100%] md:w-10/12 md:mt-24 md:mb-2">{children}</main>
 
-                <ExcludedWrapper>
-                  <Footer />
-                </ExcludedWrapper>
+                  <ExcludedWrapper>
+                    <Footer />
+                  </ExcludedWrapper>
+                </FavoriteProvider>
               </CartProvider>
             </AuthProvider>
           </body>

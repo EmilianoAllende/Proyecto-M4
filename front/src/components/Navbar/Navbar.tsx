@@ -31,7 +31,7 @@ export default function Navbar() {
 
     return (
         <nav className="w-screen flex-col">
-            <div>
+            <div className="w-11/12">
                 <div className="md:hidden flex">
                     <button className="bg bg-tertiaryColor block text-5xl p-4">TH</button>
                     <Image src={Logo} alt="tech-home-logo.png" width={300} className="w-16 m-1" />
@@ -43,48 +43,53 @@ export default function Navbar() {
                 <div className="hidden md:flex flex-row lg:w-11/12 items-center mx-auto">
                     <Image src={Logo} alt="tech-home-logo.png" width={300} className="w-16 m-1" />
                     <div className="text-justify my-auto font-black">
-                    <h1>Tech<br />Home</h1>
+                        <h1>Tech<br />Home</h1>
                     </div>
 
                     <div className="ml-7">
-                    <Link href="/home">
-                        <Image src={HomeIcon} width={50} height={50} alt="home-icon" />
-                    </Link>
+                        <Link href="/home">
+                            <Image src={HomeIcon} width={50} height={50} alt="home-icon" />
+                        </Link>
                     </div>
 
                     <div className="ml-7">
-                    <Link href="/products">
-                        <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">PRODUCTS</h3>
-                    </Link>
+                        <Link href="/products">
+                            <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">PRODUCTS</h3>
+                        </Link>
                     </div>
 
                     {/* SearchBar */}
                     <div className="ml-7">
-                    <SearchBar products={products} />
+                        <SearchBar products={products} />
                     </div>
 
-                    <div className="ml-auto mr-7">
-                    <CartStatus  />
-                    <Link href="/cart" className="-z-50">
-                        <Image src={CartIcon} width={70} height={50} alt="cart-icon" />
-                    </Link>
+                    <div className="flex mx-auto space-x-4">
+                        <div className="">
+                            <CartStatus  />
+                            <Link href="/cart" className="-z-50">
+                                <Image src={CartIcon} width={50} height={50} alt="cart-icon" />
+                            </Link>
+                        </div>
+
+                            <Link href="/about" className="m-auto">
+                                <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">ABOUT</h3>
+                            </Link>
+
+                        {user && (
+                            <Link href="/favorites" className="text-primaryColor hover:underline m-auto">
+                                <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">FAVORITES</h3>
+                            </Link>
+                        )}
+
+                        {user && (
+                            <Link href="/dashboard"  className="m-auto">
+                            <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">DASHBOARD</h3>
+                            </Link>
+                        )}
                     </div>
 
-                    <div className="mr-10">
-                    <Link href="/about">
-                        <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">ABOUT</h3>
-                    </Link>
-                    </div>
 
-                    {user && (
-                    <div className="mr-10">
-                        <Link href="/dashboard">
-                        <h3 className="font-black bg-primaryColor text-quaternaryColor rounded-full px-2">DASHBOARD</h3>
-                        </Link>
-                    </div>
-                    )}
-
-                    <div>
+                    <div className="ml-auto">
                     <UserWidget />
                     </div>
                 </div>
