@@ -1,9 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
-import UserIcon from '@/utils/user-application-identity-authentication-login-svgrepo-com.svg';
 import { useCart } from '@/contexts/CartContext';
 
 export const UserWidget = () => {
@@ -16,14 +14,13 @@ export const UserWidget = () => {
                 <button onClick={() => {
                     logout();
                     emptyCart();
-                }}>
-                    <Image src={UserIcon} width={30} height={30} alt='user-icon' className="mx-auto" />
+                }} className='bg-red-700 rounded-full text-quaternaryColor px-2 text-center'>
                     LOG OUT
                 </button>
             </div>
         ) : (
             <div className='flex flex-col'>
-                <Link href={"/auth/login"} className='bg-primaryColor rounded-full text-quaternaryColor py-1 mb-2 text-center'>LOG IN</Link>
+                <Link href={"/auth/login"} className='bg-primaryColor rounded-full text-quaternaryColor py-1 mb-2 text-center font'>LOG IN</Link>
                 <Link href={"/auth/register"} className='bg-primaryColor rounded-full text-quaternaryColor p-1 text-center'>REGISTER</Link>
             </div>
         )
