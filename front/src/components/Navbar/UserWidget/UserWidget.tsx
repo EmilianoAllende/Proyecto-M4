@@ -20,8 +20,8 @@ export const UserWidget = () => {
             </div>
         ) : (
             <div className='flex flex-col'>
-                <Link href={"/auth/login"} className='bg-primaryColor rounded-full text-quaternaryColor py-1 mb-2 text-center font'>LOG IN</Link>
-                <Link href={"/auth/register"} className='bg-primaryColor rounded-full text-quaternaryColor p-1 text-center'>REGISTER</Link>
+                <Link href={"/auth/login"} className='bg-blue-900 rounded-full text-quaternaryColor py-1 mb-2 text-center font'>LOG IN</Link>
+                <Link href={"/auth/register"} className='bg-teal-900 rounded-full text-quaternaryColor p-1 text-center'>REGISTER</Link>
             </div>
         )
     );

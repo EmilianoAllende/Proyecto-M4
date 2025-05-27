@@ -33,15 +33,7 @@ export default function Navbar() {
     return (
         <nav className="w-screen flex-col">
             <div className="w-11/12">
-                <div className="md:hidden flex">
-                    <button className="bg bg-tertiaryColor block text-5xl p-4">TH</button>
-                    <Image src={Logo} alt="tech-home-logo.png" width={300} className="w-16 m-1" />
-                    <div className="text-justify my-auto font-black">
-                    <p>Tech<br />Home</p>
-                    </div>
-                </div>
-
-                <div className="hidden md:flex flex-row lg:w-11/12 items-center mx-auto">
+                <div className="md:flex flex-row lg:w-11/12 items-center mx-auto">
                     <Image src={Logo} alt="tech-home-logo.png" width={50} className="w-16 m-1" />
                     <div className="text-justify my-auto font-black">
                         <h1>Tech<br />Home</h1>
@@ -84,13 +76,14 @@ export default function Navbar() {
                     </div>
 
 
-                    <div className="ml-auto flex">
+                    <div className="flex">
                         {user && (
                             <Link href="/dashboard"  className="mr-2">
                                 <Image src={userIcon} alt="userIcon" />
                             </Link>
                         )}
-                    <UserWidget />
+
+                        <UserWidget />
                     </div>
                 </div>
             </div>

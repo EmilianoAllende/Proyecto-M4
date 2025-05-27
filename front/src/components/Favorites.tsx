@@ -15,14 +15,19 @@ export const Favorites = () => {
     };
 
     if (favorites.length === 0) {
-        return <p className="text-center text-xl mt-10">You have no favorite products yet.</p>;
+        return (
+            <div className="bg-primaryColor mt-10 py-4 px-2 w-fit justify-self-center rounded">
+                <p className="text-center text-xl bg-tertiaryColor text-primaryColor font-semibold rounded-lg px-2">You have no favorite products yet.</p>
+            </div>
+
+        )
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        {favorites.map(product => (
-            <Card key={product.id} product={product} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mt-7">
+            {favorites.map(product => (
+                <Card key={product.id} product={product} />
+            ))}
         </div>
     );
 };
